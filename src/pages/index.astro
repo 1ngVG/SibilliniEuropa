@@ -1,0 +1,72 @@
+---
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sibillini Europa Gallery Widget</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Georgia, "Times New Roman", serif;
+        background: #f4f0e8;
+        color: #1f2937;
+      }
+
+      body {
+        margin: 0;
+        min-block-size: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(191, 219, 254, 0.45), transparent 35%),
+          linear-gradient(180deg, #f8f5ef 0%, #f0ece3 100%);
+      }
+
+      main {
+        max-inline-size: 1100px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 6rem;
+      }
+
+      h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+      }
+
+      p {
+        max-inline-size: 66ch;
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      section + section {
+        margin-block-start: 3rem;
+      }
+    </style>
+    <script>
+      window.GALLERY_WIDGET_BASE_URL = "/";
+    </script>
+    <script type="module">
+      import "../widget/widget.js";
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>Standalone gallery widget</h1>
+      <p>
+        Questa pagina Astro serve solo per verificare localmente il widget embeddabile.
+        In produzione WordPress usera il bundle statico buildato da Vite.
+      </p>
+
+      <section>
+        <h2>Estate 2025</h2>
+        <div class="gallery-widget" data-gallery="estate-2025"></div>
+      </section>
+
+      <section>
+        <h2>Evento X</h2>
+        <div class="gallery-widget" data-gallery="evento-x"></div>
+      </section>
+    </main>
+  </body>
+</html>

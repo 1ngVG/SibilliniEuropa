@@ -1,0 +1,26 @@
+{
+  "name": "sibillini-europa-gallery-widget",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build:galleries": "node src/scripts/build-galleries.js",
+    "build:widget": "vite build --config vite.widget.config.mjs",
+    "build:demo": "astro build",
+    "build": "npm run build:galleries && npm run build:widget",
+    "preview": "vite preview --config vite.widget.config.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.9.0",
+    "fast-glob": "^3.3.3",
+    "glightbox": "^3.3.1",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
