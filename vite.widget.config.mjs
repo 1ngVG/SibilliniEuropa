@@ -10,7 +10,8 @@ export default defineConfig({
     lib: {
       entry: resolve("src/widget/widget.js"),
       cssFileName: "gallery-widget",
-      formats: ["es"],
+      name: "SibilliniEuropaGalleryWidget",
+      formats: ["iife"],
       fileName: () => "gallery-widget.js"
     },
     rollupOptions: {

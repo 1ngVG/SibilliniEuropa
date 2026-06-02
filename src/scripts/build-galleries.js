@@ -5,6 +5,7 @@ import fg from "fast-glob";
 
 const INPUT_DIR = path.resolve("galleries");
 const OUTPUT_DIR = path.resolve("public/generated");
+const MANIFEST_MODULE_PATH = path.resolve("src/generated/galleries-manifest.js");
 const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"];
 
 function ensureDir(dirPath) {
@@ -21,6 +22,12 @@ function fileToAlt(fileName) {
     .basename(fileName, path.extname(fileName))
     .replace(/[-_]+/g, " ")
     .trim();
+}
+
+function writeManifestModule(galleries) {
+  const content = `const galleriesManifest = ${JSON.stringify(galleries, null, 2)};\n\nexport default galleriesManifest;\n`;
+  ensureDir(path.dirname(MANIFEST_MODULE_PATH));
+  fs.writeFileSync(MANIFEST_MODULE_PATH, content);
 }
 
 async function build() {
@@ -83,6 +90,8 @@ async function build() {
     path.join(OUTPUT_DIR, "galleries.json"),
     JSON.stringify(galleries, null, 2)
   );
+
+  writeManifestModule(galleries);
 
   if (failures.length > 0) {
     console.warn("Skipped invalid images during gallery build:");

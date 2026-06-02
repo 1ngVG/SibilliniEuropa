@@ -1,12 +1,31 @@
 import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.css";
 import "./widget.css";
+import galleriesManifest from "../generated/galleries-manifest.js";
 
-const manifestCache = new Map();
 let instanceCounter = 0;
+const scriptBaseUrl = detectScriptBaseUrl();
 
-function getDefaultBaseUrl() {
-  return new URL(/* @vite-ignore */ ".", import.meta.url);
+function detectScriptBaseUrl() {
+  if (typeof document === "undefined") {
+    return undefined;
+  }
+
+  const currentScript = document.currentScript;
+
+  if (currentScript instanceof HTMLScriptElement && currentScript.src) {
+    return new URL(".", currentScript.src);
+  }
+
+  const widgetScript = [...document.querySelectorAll("script[src]")].find((script) => {
+    return script.src.includes("gallery-widget.js");
+  });
+
+  if (widgetScript instanceof HTMLScriptElement && widgetScript.src) {
+    return new URL(".", widgetScript.src);
+  }
+
+  return undefined;
 }
 
 function getGlobalBaseUrl() {
@@ -28,23 +47,7 @@ function getElementBaseUrl(element) {
     return new URL(localBase, window.location.href);
   }
 
-  return getGlobalBaseUrl() ?? getDefaultBaseUrl();
-}
-
-async function loadManifest(baseUrl) {
-  const manifestUrl = new URL("generated/galleries.json", baseUrl).toString();
-
-  if (!manifestCache.has(manifestUrl)) {
-    manifestCache.set(manifestUrl, fetch(manifestUrl).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Unable to load manifest: ${response.status}`);
-      }
-
-      return response.json();
-    }));
-  }
-
-  return manifestCache.get(manifestUrl);
+  return getGlobalBaseUrl() ?? scriptBaseUrl ?? new URL(window.location.href);
 }
 
 function renderEmptyState(element, message, state) {
@@ -83,10 +86,8 @@ export async function initGalleryWidgets(root = document) {
     return;
   }
 
-  const baseUrl = getElementBaseUrl(elements[0]);
-
   try {
-    const manifest = await loadManifest(baseUrl);
+    const manifest = galleriesManifest;
 
     for (const element of elements) {
       const galleryName = element.dataset.gallery;

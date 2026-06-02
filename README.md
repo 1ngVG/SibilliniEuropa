@@ -34,11 +34,13 @@ Slug attuale pubblicato nel repository: `Sess25`.
 
 Dopo il deploy, la root del sito Netlify mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
 
+Il widget e pensato per embed cross-site: usa un bundle JS classico e non richiede fetch runtime del manifest JSON.
+
 ## Embed WordPress
 
 ```html
 <link rel="stylesheet" href="https://your-netlify-site.netlify.app/gallery-widget.css">
-<script type="module" src="https://your-netlify-site.netlify.app/gallery-widget.js"></script>
+<script defer src="https://your-netlify-site.netlify.app/gallery-widget.js"></script>
 
 <div class="gallery-widget" data-gallery="Sess25"></div>
 ```

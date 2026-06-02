@@ -1,0 +1,41 @@
+const galleriesManifest = {
+  "Sess25": [
+    {
+      "alt": "DSCF9249",
+      "src": "generated/Sess25/DSCF9249.webp",
+      "thumbnail": "generated/Sess25/DSCF9249-thumb.webp"
+    },
+    {
+      "alt": "DSCF9260",
+      "src": "generated/Sess25/DSCF9260.webp",
+      "thumbnail": "generated/Sess25/DSCF9260-thumb.webp"
+    },
+    {
+      "alt": "DSCF9262",
+      "src": "generated/Sess25/DSCF9262.webp",
+      "thumbnail": "generated/Sess25/DSCF9262-thumb.webp"
+    },
+    {
+      "alt": "DSCF9266",
+      "src": "generated/Sess25/DSCF9266.webp",
+      "thumbnail": "generated/Sess25/DSCF9266-thumb.webp"
+    },
+    {
+      "alt": "DSCF9267",
+      "src": "generated/Sess25/DSCF9267.webp",
+      "thumbnail": "generated/Sess25/DSCF9267-thumb.webp"
+    },
+    {
+      "alt": "DSCF9271",
+      "src": "generated/Sess25/DSCF9271.webp",
+      "thumbnail": "generated/Sess25/DSCF9271-thumb.webp"
+    },
+    {
+      "alt": "DSCF9273",
+      "src": "generated/Sess25/DSCF9273.webp",
+      "thumbnail": "generated/Sess25/DSCF9273-thumb.webp"
+    }
+  ]
+};
+
+export default galleriesManifest;
