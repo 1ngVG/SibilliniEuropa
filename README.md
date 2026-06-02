@@ -32,6 +32,8 @@ src/
 
 Slug attuale pubblicato nel repository: `Sess25`.
 
+Dopo il deploy, la root del sito Netlify mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
+
 ## Embed WordPress
 
 ```html
