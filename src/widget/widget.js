@@ -170,11 +170,7 @@ function renderGallery(element, galleryName, items, baseUrl) {
   element.innerHTML = `
     <section class="gw-shell" aria-label="Galleria ${escapeHtml(galleryName)}">
       <div class="gw-carousel-header">
-        <div>
-          <p class="gw-kicker">Galleria fotografica</p>
-          <h2 class="gw-title">${escapeHtml(galleryName)}</h2>
-        </div>
-        <button class="gw-open-grid" type="button" data-gw-action="open-modal">Apri griglia completa</button>
+        <button class="gw-open-grid" type="button" data-gw-action="open-modal">GRID VIEW</button>
       </div>
 
       <div class="gw-carousel">
@@ -188,11 +184,7 @@ function renderGallery(element, galleryName, items, baseUrl) {
       <div class="gw-modal" hidden>
         <div class="gw-modal-dialog" role="dialog" aria-modal="true" aria-label="Griglia completa ${escapeHtml(galleryName)}">
           <div class="gw-modal-header">
-            <div>
-              <p class="gw-kicker">Griglia completa</p>
-              <h3 class="gw-modal-title">${escapeHtml(galleryName)}</h3>
-            </div>
-            <button class="gw-close" type="button" data-gw-action="close-modal" aria-label="Chiudi popup">Chiudi</button>
+            <button class="gw-close" type="button" data-gw-action="close-modal" aria-label="Chiudi popup">&times;</button>
           </div>
           <div class="gw-popup-grid">
             ${gridHtml}

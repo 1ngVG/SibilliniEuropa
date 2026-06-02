@@ -7,7 +7,8 @@
   --gw-surface-strong: rgba(255, 255, 255, 0.96);
   --gw-ink: #122033;
   --gw-muted: #526071;
-  --gw-accent: #1d4ed8;
+  --gw-accent: #458657;
+  --gw-accent-strong: #3c744b;
 }
 
 body.gw-modal-open {
@@ -38,47 +39,32 @@ body.gw-modal-open {
 .gw-modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
-}
-
-.gw-kicker {
-  margin: 0 0 0.2rem;
-  color: var(--gw-accent);
-  font: 700 0.8rem/1.1 Arial, sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.gw-title,
-.gw-modal-title {
-  margin: 0;
-  color: var(--gw-ink);
-  font: 700 clamp(1.4rem, 3vw, 2rem)/1.1 Georgia, "Times New Roman", serif;
 }
 
 .gw-open-grid,
 .gw-nav,
 .gw-close {
-  border: 1px solid var(--gw-border);
+  border: 1px solid var(--gw-accent-strong);
   border-radius: 999px;
-  background: var(--gw-surface-strong);
-  color: var(--gw-ink);
+  background: var(--gw-accent);
+  color: #ffffff;
   cursor: pointer;
-  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.gw-open-grid,
-.gw-close {
-  padding: 0.8rem 1rem;
-  font: 600 0.92rem/1 Arial, sans-serif;
+.gw-open-grid {
+  padding: 0.5rem 0.82rem;
+  font: 700 0.72rem/1 Arial, sans-serif;
+  letter-spacing: 0.08em;
 }
 
 .gw-nav {
-  inline-size: 2.9rem;
-  block-size: 2.9rem;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
   flex: 0 0 auto;
-  font-size: 1.45rem;
+  font-size: 1.2rem;
 }
 
 .gw-open-grid:hover,
@@ -88,8 +74,9 @@ body.gw-modal-open {
 .gw-nav:focus-visible,
 .gw-close:focus-visible {
   transform: translateY(-1px);
-  border-color: rgba(29, 78, 216, 0.28);
-  background: #ffffff;
+  border-color: var(--gw-accent-strong);
+  background: var(--gw-accent-strong);
+  box-shadow: 0 10px 24px rgba(69, 134, 87, 0.24);
 }
 
 .gw-carousel {
@@ -97,7 +84,7 @@ body.gw-modal-open {
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--gw-gap);
   align-items: center;
-  margin-block-start: 1.2rem;
+  margin-block-start: 0.85rem;
 }
 
 .gw-carousel-viewport {
@@ -127,6 +114,20 @@ body.gw-modal-open {
 .gw-slide {
   cursor: pointer;
   scroll-snap-align: start;
+}
+
+.gw-modal-header {
+  margin-block-end: 1rem;
+}
+
+.gw-close {
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .gw-slide img,
