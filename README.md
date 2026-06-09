@@ -1,6 +1,6 @@
 # SibilliniEuropa
 
-Widget galleria standalone per sibillinieuropa.eu.
+Widget standalone per sibillinieuropa.eu (galleria foto + calendario settimanale).
 
 ## Stack
 
@@ -14,9 +14,12 @@ Widget galleria standalone per sibillinieuropa.eu.
 ```text
 galleries/
   Sess25/
+schedule/
+  program.csv
 public/
   generated/
 src/
+  schedule/
   pages/
   scripts/
   widget/
@@ -29,6 +32,12 @@ src/
 3. Esegui `npm run build`.
 4. Pubblica la cartella `dist/` su Netlify.
 5. In WordPress importa `gallery-widget.css`, `gallery-widget.js` e aggiungi i contenitori `.gallery-widget`.
+
+Per il calendario settimanale:
+
+1. Compila `schedule/program.csv` con colonne `Day;StartTime;EndTime;Title;Description;Location;Color`.
+2. Esegui `npm run build`.
+3. In WordPress importa `schedule-widget.css`, `schedule-widget.js` e aggiungi i contenitori `.schedule-widget`.
 
 Slug attuale pubblicato nel repository: `Sess25`.
 
@@ -45,11 +54,22 @@ Il widget e pensato per embed cross-site: usa un bundle JS classico e non richie
 <div class="gallery-widget" data-gallery="Sess25"></div>
 ```
 
+Per il calendario:
+
+```html
+<link rel="stylesheet" href="https://your-netlify-site.netlify.app/schedule-widget.css">
+<script defer src="https://your-netlify-site.netlify.app/schedule-widget.js"></script>
+
+<div class="schedule-widget" data-schedule="program"></div>
+```
+
 ## Comandi
 
 - `npm run dev`: demo locale Astro
 - `npm run build:galleries`: genera immagini ottimizzate e manifest JSON
+- `npm run build:schedule`: genera il manifest schedule da CSV
 - `npm run build:widget`: genera il bundle standalone del widget
+- `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
 - `npm run build`: build del widget deployabile
 - `npm run build:demo`: build opzionale della pagina demo Astro
 

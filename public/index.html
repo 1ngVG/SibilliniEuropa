@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sibillini Europa Gallery Widget</title>
-    <meta name="description" content="Anteprima pubblicata del widget galleria standalone per Sibillini Europa.">
+    <title>Sibillini Europa Widgets</title>
+    <meta name="description" content="Anteprima pubblicata dei widget standalone per Sibillini Europa.">
     <link rel="stylesheet" href="/gallery-widget.css">
+    <link rel="stylesheet" href="/schedule-widget.css">
     <style>
       :root {
         color-scheme: light;
@@ -49,11 +50,15 @@
     <main>
       <h1>Sibillini Europa Gallery Widget</h1>
       <p>
-        Questa pagina conferma che il deploy Netlify e attivo e che il widget puo essere caricato correttamente.
-        La galleria pubblicata in questa build usa lo slug <code>Sess25</code>.
+        Questa pagina conferma che il deploy Netlify e attivo e che i widget possono essere caricati correttamente.
+        Galleria corrente: <code>Sess25</code>. Programma corrente: <code>program</code>.
       </p>
       <div class="gallery-widget" data-gallery="Sess25"></div>
+      <div style="margin-top: 2rem;">
+        <div class="schedule-widget" data-schedule="program"></div>
+      </div>
     </main>
     <script defer src="/gallery-widget.js"></script>
+    <script defer src="/schedule-widget.js"></script>
   </body>
 </html>

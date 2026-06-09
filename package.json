@@ -9,9 +9,11 @@
   "scripts": {
     "dev": "astro dev",
     "build:galleries": "node src/scripts/build-galleries.js",
+    "build:schedule": "node src/scripts/build-schedule.js",
     "build:widget": "vite build --config vite.widget.config.mjs",
+    "build:schedule-widget": "vite build --config vite.schedule.config.mjs",
     "build:demo": "astro build",
-    "build": "npm run build:galleries && npm run build:widget",
+    "build": "npm run build:galleries && npm run build:schedule && npm run build:widget && npm run build:schedule-widget",
     "preview": "vite preview --config vite.widget.config.mjs"
   },
   "dependencies": {
