@@ -1,7 +1,26 @@
 Day;StartTime;EndTime;Title;Description;Location;Color
-2026-08-26;09:00;10:00;Opening Ceremony;Welcome and program overview;Main Hall;#458657
-2026-08-26;10:15;11:45;Workshop 1;Hands-on session;Room A;#2E86DE
-2026-08-27;09:30;11:00;Panel Discussion;Experts roundtable;Conference Room;#8E44AD
-2026-08-28;09:00;10:30;Lecture;Keynote presentation;Main Hall;#C0392B
-2026-08-29;10:15;11:30;Case Study;Real-world analysis;Room C;#D35400
-2026-08-30;11:15;12:00;Closing Session;Wrap-up and farewell;Main Hall;#458657
+2026-08-26;09:00;14:00;Arrival and Check-in;We will be welcoming you at the town hall with gadgets and the info for your accommodation.;Town Hall;#fecc08
+2026-08-26;15:00;18:00;Tour of Amandola;Guided tour of the town and its main attractions.;Town Hall;#458657
+2026-08-26;18:00;20:00;Opening of the school; Lectio Magistralis and ceremony; TbD;#fecc08
+2026-08-26;20:00;22:00;Dinner;Enjoy a meal with fellow participants.;Casa del Parco;#458657
+2026-08-26;22:00;00:00;Socialising Activity;Relax and mingle with other attendees.;TbD;#fecc08
+
+2026-08-27;09:00;10:15;Lecture 1 - History of EU;Introduction to the history of the European Union.;TbD;#458657
+2026-08-27;10:15;11:30;Lecture 2 - Working for the EU institutions;Overview of career opportunities within EU institutions.;TbD;#fecc08
+2026-08-27;11:30;11:45;Break;Short break for refreshments.;TbD;#458657
+2026-08-27;11:45;13:00;Presentation of the LUISS project;Detailed presentation of the LUISS project.;TbD;#fecc08
+2026-08-27;13:00;14:30;Lunch;Enjoy a meal with fellow participants.;Casa del Parco;#458657
+2026-08-27;14:30;15:45;Lecture 3;Continuation of the lecture series.;TbD;#fecc08
+2026-08-27;15:45;17:00;Workshop / Lecture 4;Interactive session or lecture.;TbD;#458657
+2026-08-27;17:00;18:30;Break;Short break for refreshments.;TbD;#fecc08
+2026-08-27;18:30;20:00;Public Panel 1;Discussion with guest speakers.;TbD;#458657
+2026-08-27;20:00;21:30;Dinner;Enjoy a meal with fellow participants.;Casa del Parco;#fecc08
+2026-08-27;21:30;23:00;Karaoke Night;Fun and entertainment with fellow participants.;TbD;#458657
+
+2026-08-28;09:00;10:15;Lecture 4;Continuation of the lecture series.;TbD;#fecc08
+2026-08-28;10:15;10:30;Break;Short break for refreshments.;TbD;#458657
+2026-08-28;10:30;13:00;Simulation Exercise;Interactive simulation exercise.;TbD;#fecc08
+2026-08-28;13:00;14:30;Lunch;Enjoy a meal with fellow participants.;Casa del Parco;#458657
+2026-08-28;14:30;16:00;Career Coffee;Networking session with industry professionals.;Town Hall;#fecc08
+
+
