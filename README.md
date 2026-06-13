@@ -76,3 +76,32 @@ Per il calendario:
 ## Netlify
 
 Il repository include [netlify.toml](netlify.toml), quindi su Netlify basta collegare la repo: il build command e la publish directory sono gia impostati.
+
+## GitHub Pages
+
+Il repository include anche il workflow [deploy-pages.yml](.github/workflows/deploy-pages.yml) per pubblicare automaticamente `dist/` su GitHub Pages a ogni push su `main`.
+
+Setup iniziale (una sola volta):
+
+1. Vai su `Settings > Pages` del repository.
+2. In `Build and deployment`, scegli `Source: GitHub Actions`.
+3. Fai push su `main`.
+4. Attendi il completamento del workflow `Deploy To GitHub Pages`.
+
+L'URL finale sara in forma `https://<user>.github.io/<repo>/` (a meno di dominio custom).
+
+Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con il prefisso repo:
+
+```html
+<link rel="stylesheet" href="https://<user>.github.io/<repo>/gallery-widget.css">
+<script defer src="https://<user>.github.io/<repo>/gallery-widget.js"></script>
+
+<div class="gallery-widget" data-gallery="Sess25"></div>
+```
+
+```html
+<link rel="stylesheet" href="https://<user>.github.io/<repo>/schedule-widget.css">
+<script defer src="https://<user>.github.io/<repo>/schedule-widget.js"></script>
+
+<div class="schedule-widget" data-schedule="program"></div>
+```
