@@ -34,7 +34,7 @@ function formatDayName(dayValue) {
     return dayValue;
   }
 
-  return new Intl.DateTimeFormat("it-IT", {
+  return new Intl.DateTimeFormat("en-GB", {
     weekday: "long"
   }).format(parsed);
 }
