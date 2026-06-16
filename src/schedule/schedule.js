@@ -69,21 +69,6 @@ function normalizeColor(value) {
   return color || "#458657";
 }
 
-function readableTextColor(colorValue) {
-  const color = normalizeColor(colorValue).replace("#", "");
-
-  if (color.length !== 6) {
-    return "#ffffff";
-  }
-
-  const red = Number.parseInt(color.slice(0, 2), 16);
-  const green = Number.parseInt(color.slice(2, 4), 16);
-  const blue = Number.parseInt(color.slice(4, 6), 16);
-  const luminance = ((red * 299) + (green * 587) + (blue * 114)) / 1000;
-
-  return luminance > 160 ? "#122033" : "#ffffff";
-}
-
 function getCardStyle(event) {
   const startMinutes = parseTimeToMinutes(event.startTime);
   let endMinutes = parseTimeToMinutes(event.endTime);
@@ -127,7 +112,24 @@ function renderEventCard(event) {
     : "";
 
   return `
-    <article class="sw-card" data-card-height="${style.height}" style="--sw-card-color:${escapeHtml(style.color)};inset-block-start:${style.top}px;block-size:${style.height}px;">
+    <article class="sw-card" data-sw-toggle-card data-card-height="${style.height}" style="--sw-card-color:${escapeHtml(style.color)};inset-block-start:${style.top}px;block-size:${style.height}px;">
+      <p class="sw-time">${escapeHtml(event.startTime)} - ${escapeHtml(event.endTime)}</p>
+      <h3 class="sw-title">${escapeHtml(event.title)}</h3>
+      ${detailHtml}
+    </article>
+  `;
+}
+
+function renderAgendaEventCard(event) {
+  const color = normalizeColor(event.color);
+  const descriptionHtml = event.description ? `<p class="sw-desc">${escapeHtml(event.description)}</p>` : "";
+  const locationHtml = event.location ? `<p class="sw-location">${escapeHtml(event.location)}</p>` : "";
+  const detailHtml = (descriptionHtml || locationHtml)
+    ? `<div class="sw-agenda-detail">${descriptionHtml}${locationHtml}</div>`
+    : "";
+
+  return `
+    <article class="sw-agenda-card" data-sw-toggle-card style="--sw-card-color:${escapeHtml(color)};">
       <p class="sw-time">${escapeHtml(event.startTime)} - ${escapeHtml(event.endTime)}</p>
       <h3 class="sw-title">${escapeHtml(event.title)}</h3>
       ${detailHtml}
@@ -137,14 +139,17 @@ function renderEventCard(event) {
 
 function setupCardToggles(container) {
   container.addEventListener("click", (event) => {
-    const card = event.target.closest(".sw-card");
+    const card = event.target.closest("[data-sw-toggle-card]");
 
-    if (!card) {
+    if (!card || !container.contains(card)) {
       return;
     }
 
-    const isOpen = card.classList.toggle("sw-card--open");
-    card.style.blockSize = isOpen ? "auto" : `${card.dataset.cardHeight}px`;
+    const isOpen = card.classList.toggle("is-open");
+
+    if (card.dataset.cardHeight) {
+      card.style.blockSize = isOpen ? "auto" : `${card.dataset.cardHeight}px`;
+    }
   });
 }
 
@@ -165,6 +170,22 @@ function renderDayColumn(events, trackHeight) {
   return `
     <section class="sw-day-track" style="--sw-track-height:${trackHeight}px;">
       ${cardsHtml}
+    </section>
+  `;
+}
+
+function renderMobileDay(day, events) {
+  const cardsHtml = events.length > 0
+    ? events.map((event) => renderAgendaEventCard(event)).join("")
+    : '<p class="sw-mobile-empty">No activities</p>';
+
+  return `
+    <section class="sw-mobile-day" aria-label="${escapeHtml(formatDayName(day))}">
+      <header class="sw-mobile-day-header">
+        <span class="sw-day-number">${escapeHtml(formatDayNumber(day))}</span>
+        <span class="sw-day-name">${escapeHtml(formatDayName(day))}</span>
+      </header>
+      <div class="sw-mobile-events">${cardsHtml}</div>
     </section>
   `;
 }
@@ -195,6 +216,14 @@ function renderSchedule(element, scheduleKey, scheduleData) {
     return renderDayColumn(events, trackHeight);
   }).join("");
 
+  const mobileDaysHtml = days.map((day) => {
+    const events = [...(scheduleData.eventsByDay?.[day] ?? [])].sort((left, right) => {
+      return parseTimeToMinutes(left.startTime) - parseTimeToMinutes(right.startTime);
+    });
+
+    return renderMobileDay(day, events);
+  }).join("");
+
   element.dataset.state = "ready";
   element.innerHTML = `
     <section class="sw-shell" aria-label="${escapeHtml(scheduleData.label || scheduleKey)}">
@@ -206,13 +235,14 @@ function renderSchedule(element, scheduleKey, scheduleData) {
         </aside>
         ${columnsHtml}
       </div>
+      <div class="sw-mobile-agenda">${mobileDaysHtml}</div>
     </section>
   `;
 
-  const calendar = element.querySelector(".sw-calendar");
+  const shell = element.querySelector(".sw-shell");
 
-  if (calendar) {
-    setupCardToggles(calendar);
+  if (shell) {
+    setupCardToggles(shell);
   }
 }
 
