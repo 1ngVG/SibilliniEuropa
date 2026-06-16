@@ -22,6 +22,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Detect changed areas
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            galleries:
+              - 'galleries/**'
+            gallery-widget:
+              - 'src/widget/**'
+              - 'vite.widget.config.mjs'
+            schedule:
+              - 'schedule/**'
+            schedule-widget:
+              - 'src/schedule/**'
+              - 'vite.schedule.config.mjs'
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,8 +47,29 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Restore dist cache
+        id: dist-cache
+        uses: actions/cache@v4
+        with:
+          path: dist
+          key: dist-${{ github.sha }}
+          restore-keys: dist-
+
+      - name: Build galleries
+        if: steps.changes.outputs.galleries == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:galleries
+
+      - name: Build gallery widget
+        if: steps.changes.outputs.galleries == 'true' || steps.changes.outputs.gallery-widget == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:widget
+
+      - name: Build schedule manifest
+        if: steps.changes.outputs.schedule == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:schedule
+
+      - name: Build schedule widget
+        if: steps.changes.outputs.schedule == 'true' || steps.changes.outputs.schedule-widget == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:schedule-widget
 
       - name: Disable Jekyll
         run: touch dist/.nojekyll
