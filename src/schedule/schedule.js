@@ -109,8 +109,7 @@ function getCardStyle(event) {
   return {
     top,
     height,
-    color,
-    textColor: readableTextColor(color)
+    color
   };
 }
 
@@ -123,15 +122,30 @@ function renderEventCard(event) {
 
   const descriptionHtml = event.description ? `<p class="sw-desc">${escapeHtml(event.description)}</p>` : "";
   const locationHtml = event.location ? `<p class="sw-location">${escapeHtml(event.location)}</p>` : "";
+  const detailHtml = (descriptionHtml || locationHtml)
+    ? `<div class="sw-detail">${descriptionHtml}${locationHtml}</div>`
+    : "";
 
   return `
-    <article class="sw-card" style="--sw-card-color:${escapeHtml(style.color)};--sw-card-text:${style.textColor};inset-block-start:${style.top}px;block-size:${style.height}px;">
+    <article class="sw-card" data-card-height="${style.height}" style="--sw-card-color:${escapeHtml(style.color)};inset-block-start:${style.top}px;block-size:${style.height}px;">
       <p class="sw-time">${escapeHtml(event.startTime)} - ${escapeHtml(event.endTime)}</p>
       <h3 class="sw-title">${escapeHtml(event.title)}</h3>
-      ${descriptionHtml}
-      ${locationHtml}
+      ${detailHtml}
     </article>
   `;
+}
+
+function setupCardToggles(container) {
+  container.addEventListener("click", (event) => {
+    const card = event.target.closest(".sw-card");
+
+    if (!card) {
+      return;
+    }
+
+    const isOpen = card.classList.toggle("sw-card--open");
+    card.style.blockSize = isOpen ? "auto" : `${card.dataset.cardHeight}px`;
+  });
 }
 
 function renderHourLabels() {
@@ -194,6 +208,12 @@ function renderSchedule(element, scheduleKey, scheduleData) {
       </div>
     </section>
   `;
+
+  const calendar = element.querySelector(".sw-calendar");
+
+  if (calendar) {
+    setupCardToggles(calendar);
+  }
 }
 
 function renderState(element, message, state) {

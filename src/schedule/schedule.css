@@ -1,13 +1,13 @@
 .schedule-widget {
   --sw-gap: 0;
   --sw-radius: 16px;
-  --sw-border: rgba(255, 255, 255, 0.08);
-  --sw-shell-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
-  --sw-bg: #1d1f23;
-  --sw-bg-soft: #272a2f;
-  --sw-grid-line: rgba(255, 255, 255, 0.1);
-  --sw-text: #eceff3;
-  --sw-muted: #9fa7b3;
+  --sw-border: rgba(15, 23, 42, 0.14);
+  --sw-shell-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+  --sw-bg: #f0f2f5;
+  --sw-bg-soft: #e4e7ec;
+  --sw-grid-line: rgba(15, 23, 42, 0.1);
+  --sw-text: #1f2937;
+  --sw-muted: #526071;
   --sw-time-col: 82px;
   --sw-day-min-width: 170px;
 }
@@ -25,7 +25,7 @@
 .sw-shell {
   border: 1px solid var(--sw-border);
   border-radius: var(--sw-radius);
-  background: linear-gradient(180deg, #25282d, #1f2125);
+  background: #ffffff;
   box-shadow: var(--sw-shell-shadow);
   overflow: hidden;
 }
@@ -43,7 +43,7 @@
   min-block-size: 86px;
   border-inline-end: 1px solid var(--sw-grid-line);
   border-block-end: 1px solid var(--sw-grid-line);
-  background: linear-gradient(180deg, #31343a, #292c31);
+  background: linear-gradient(180deg, #f8fafc, #f0f2f5);
 }
 
 .sw-time-header {
@@ -60,7 +60,7 @@
 
 .sw-day-number {
   font: 700 2.2rem/0.92 Arial, sans-serif;
-  color: #dbe2ea;
+  color: #1f2937;
 }
 
 .sw-day-name {
@@ -85,15 +85,15 @@
 }
 
 .sw-time-rail {
-  border-inline-end: 1px solid rgba(255, 255, 255, 0.14);
-  background-color: rgba(255, 255, 255, 0.02);
+  border-inline-end: 1px solid rgba(15, 23, 42, 0.14);
+  background-color: rgba(15, 23, 42, 0.02);
 }
 
 .sw-hour-label {
   position: absolute;
   inset-inline-end: 0.42rem;
   transform: translateY(-50%);
-  color: #8893a0;
+  color: #6b7280;
   font: 700 0.72rem/1 Arial, sans-serif;
 }
 
@@ -105,28 +105,53 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-inline-start: 6px solid var(--sw-card-color, #458657);
   background: var(--sw-card-color, #458657);
-  color: var(--sw-card-text, #ffffff);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
   padding: 0.55rem 0.56rem;
   overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 160ms ease, z-index 0s;
+  z-index: 1;
+}
+
+.sw-card--open {
+  z-index: 10;
+  overflow: visible;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.28);
 }
 
 .sw-time {
   margin: 0;
   font: 700 0.68rem/1 Arial, sans-serif;
   letter-spacing: 0.04em;
+  color: #ffffff;
   opacity: 0.95;
 }
 
 .sw-title {
-  margin: 0.22rem 0 0.16rem;
+  margin: 0.22rem 0 0;
   font: 700 0.8rem/1.12 Arial, sans-serif;
+  color: #ffffff;
+}
+
+.sw-detail {
+  display: none;
+  margin-block-start: 0.32rem;
+  padding-block-start: 0.32rem;
+  border-block-start: 1px solid rgba(255, 255, 255, 0.28);
+  background: inherit;
+  border-radius: 0 0 8px 8px;
+}
+
+.sw-card--open .sw-detail {
+  display: block;
 }
 
 .sw-desc,
 .sw-location {
   margin: 0.12rem 0 0;
   font: 500 0.72rem/1.24 Arial, sans-serif;
+  color: #ffffff;
   opacity: 0.95;
 }
 
