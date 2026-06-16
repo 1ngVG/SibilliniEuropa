@@ -127,28 +127,17 @@ function parseScheduleCsv(fileContent) {
 
 function buildScheduleManifest(events) {
   const parsedDays = [...new Set(events.map((event) => event.day))].sort();
-  const week = [
-    "2026-08-26",
-    "2026-08-27",
-    "2026-08-28",
-    "2026-08-29",
-    "2026-08-30"
-  ];
   const grouped = {};
 
-  for (const day of week) {
-    grouped[day] = events.filter((event) => event.day === day);
-  }
-
   for (const day of parsedDays) {
-    grouped[day] ??= events.filter((event) => event.day === day);
+    grouped[day] = events.filter((event) => event.day === day);
   }
 
   return {
     program: {
       label: "Programma settimanale",
-      week,
-      days: week,
+      week: parsedDays,
+      days: parsedDays,
       eventsByDay: grouped
     }
   };

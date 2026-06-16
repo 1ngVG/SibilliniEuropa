@@ -1,17 +1,10 @@
 import "./schedule.css";
 import scheduleManifest from "../generated/schedule-manifest.js";
 
-const WEEK_DAYS = [
-  "2026-08-26",
-  "2026-08-27",
-  "2026-08-28",
-  "2026-08-29",
-  "2026-08-30"
-];
-
 const DAY_START = 8 * 60;
-const DAY_END = 23 * 60;
-const HOUR_HEIGHT = 72;
+const DAY_END = 24 * 60;
+const HOUR_HEIGHT = 66;
+const SLOT_MINUTES = 60;
 
 function escapeHtml(value) {
   return String(value)
@@ -28,13 +21,13 @@ function parseTimeToMinutes(value) {
   const minutes = Number.parseInt(minutesText, 10);
 
   if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-    return 0;
+    return Number.POSITIVE_INFINITY;
   }
 
   return (hours * 60) + minutes;
 }
 
-function formatDayLabel(dayValue) {
+function formatDayName(dayValue) {
   const parsed = new Date(`${dayValue}T00:00:00`);
 
   if (Number.isNaN(parsed.getTime())) {
@@ -42,10 +35,29 @@ function formatDayLabel(dayValue) {
   }
 
   return new Intl.DateTimeFormat("it-IT", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long"
+    weekday: "long"
   }).format(parsed);
+}
+
+function formatDayNumber(dayValue) {
+  const parsed = new Date(`${dayValue}T00:00:00`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return dayValue;
+  }
+
+  return String(parsed.getDate());
+}
+
+function buildWeekDays(scheduleData) {
+  const sourceDays = [
+    ...(Array.isArray(scheduleData.week) ? scheduleData.week : []),
+    ...(Array.isArray(scheduleData.days) ? scheduleData.days : []),
+    ...Object.keys(scheduleData.eventsByDay ?? {})
+  ].filter(Boolean);
+
+  const uniqueDays = [...new Set(sourceDays)].sort();
+  return uniqueDays;
 }
 
 function formatHourLabel(minutes) {
@@ -76,14 +88,22 @@ function getCardStyle(event) {
   const startMinutes = parseTimeToMinutes(event.startTime);
   let endMinutes = parseTimeToMinutes(event.endTime);
 
+  if (!Number.isFinite(startMinutes) || !Number.isFinite(endMinutes)) {
+    return null;
+  }
+
   if (endMinutes <= startMinutes) {
     endMinutes += 24 * 60;
   }
 
+  if (endMinutes <= DAY_START || startMinutes >= DAY_END) {
+    return null;
+  }
+
   const clippedStart = Math.max(startMinutes, DAY_START);
   const clippedEnd = Math.min(endMinutes, DAY_END);
-  const top = ((clippedStart - DAY_START) / 60) * HOUR_HEIGHT;
-  const height = Math.max(52, ((clippedEnd - clippedStart) / 60) * HOUR_HEIGHT - 6);
+  const top = ((clippedStart - DAY_START) / SLOT_MINUTES) * HOUR_HEIGHT;
+  const height = Math.max(30, ((clippedEnd - clippedStart) / SLOT_MINUTES) * HOUR_HEIGHT - 4);
   const color = normalizeColor(event.color);
 
   return {
@@ -96,6 +116,11 @@ function getCardStyle(event) {
 
 function renderEventCard(event) {
   const style = getCardStyle(event);
+
+  if (!style) {
+    return "";
+  }
+
   const descriptionHtml = event.description ? `<p class="sw-desc">${escapeHtml(event.description)}</p>` : "";
   const locationHtml = event.location ? `<p class="sw-location">${escapeHtml(event.location)}</p>` : "";
 
@@ -109,40 +134,64 @@ function renderEventCard(event) {
   `;
 }
 
-function renderDayColumn(day, events) {
+function renderHourLabels() {
+  const ticks = [];
+
+  for (let minutes = DAY_START; minutes <= DAY_END; minutes += SLOT_MINUTES) {
+    const top = ((minutes - DAY_START) / SLOT_MINUTES) * HOUR_HEIGHT;
+    ticks.push(`<span class="sw-hour-label" style="inset-block-start:${top}px;">${formatHourLabel(minutes)}</span>`);
+  }
+
+  return ticks.join("");
+}
+
+function renderDayColumn(events, trackHeight) {
   const cardsHtml = events.map((event) => renderEventCard(event)).join("");
-  const labelsHtml = Array.from({ length: ((DAY_END - DAY_START) / 60) + 1 }, (_, index) => {
-    const minutes = DAY_START + (index * 60);
-    return `<span class="sw-hour-label" style="inset-block-start:${index * HOUR_HEIGHT}px;">${formatHourLabel(minutes)}</span>`;
-  }).join("");
 
   return `
-    <section class="sw-day" aria-label="${escapeHtml(formatDayLabel(day))}">
-      <h2 class="sw-day-title">${escapeHtml(formatDayLabel(day))}</h2>
-      <div class="sw-track" style="--sw-track-height:${(DAY_END - DAY_START) / 60 * HOUR_HEIGHT}px;">
-        <div class="sw-rail" aria-hidden="true">${labelsHtml}</div>
-        ${cardsHtml}
-      </div>
+    <section class="sw-day-track" style="--sw-track-height:${trackHeight}px;">
+      ${cardsHtml}
     </section>
   `;
 }
 
 function renderSchedule(element, scheduleKey, scheduleData) {
-  const days = WEEK_DAYS;
-  const dayLabelsHtml = days.map((day) => `<div class="sw-day-label">${escapeHtml(formatDayLabel(day))}</div>`).join("");
+  const days = buildWeekDays(scheduleData);
+
+  if (days.length === 0) {
+    renderState(element, `Schedule "${scheduleKey}" has no days.`, "empty");
+    return;
+  }
+
+  const trackHeight = ((DAY_END - DAY_START) / SLOT_MINUTES) * HOUR_HEIGHT;
+  const dayLabelsHtml = days.map((day) => {
+    return `
+      <header class="sw-day-header" aria-label="${escapeHtml(formatDayName(day))}">
+        <span class="sw-day-number">${escapeHtml(formatDayNumber(day))}</span>
+        <span class="sw-day-name">${escapeHtml(formatDayName(day))}</span>
+      </header>
+    `;
+  }).join("");
+
   const columnsHtml = days.map((day) => {
     const events = [...(scheduleData.eventsByDay?.[day] ?? [])].sort((left, right) => {
       return parseTimeToMinutes(left.startTime) - parseTimeToMinutes(right.startTime);
     });
 
-    return renderDayColumn(day, events);
+    return renderDayColumn(events, trackHeight);
   }).join("");
 
   element.dataset.state = "ready";
   element.innerHTML = `
     <section class="sw-shell" aria-label="${escapeHtml(scheduleData.label || scheduleKey)}">
-      <div class="sw-day-labels">${dayLabelsHtml}</div>
-      <div class="sw-grid">${columnsHtml}</div>
+      <div class="sw-calendar" style="--sw-day-count:${days.length};--sw-track-height:${trackHeight}px;--sw-hour-height:${HOUR_HEIGHT}px;">
+        <div class="sw-time-header" aria-hidden="true"></div>
+        ${dayLabelsHtml}
+        <aside class="sw-time-rail" aria-hidden="true">
+          ${renderHourLabels()}
+        </aside>
+        ${columnsHtml}
+      </div>
     </section>
   `;
 }
