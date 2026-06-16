@@ -114,6 +114,11 @@
   z-index: 1;
 }
 
+.schedule-widget .sw-card,
+.schedule-widget .sw-card * {
+  color: #ffffff !important;
+}
+
 .sw-card--open {
   z-index: 10;
   overflow: visible;
@@ -124,14 +129,14 @@
   margin: 0;
   font: 700 0.68rem/1 Arial, sans-serif;
   letter-spacing: 0.04em;
-  color: #ffffff;
+  color: #ffffff !important;
   opacity: 0.95;
 }
 
 .sw-title {
   margin: 0.22rem 0 0;
   font: 700 0.8rem/1.12 Arial, sans-serif;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .sw-detail {
@@ -151,7 +156,7 @@
 .sw-location {
   margin: 0.12rem 0 0;
   font: 500 0.72rem/1.24 Arial, sans-serif;
-  color: #ffffff;
+  color: #ffffff !important;
   opacity: 0.95;
 }
 
