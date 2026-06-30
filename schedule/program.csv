@@ -1,27 +1,27 @@
 Day;StartTime;EndTime;Title;Description;Location;Color
 2026-08-26;09:00;14:00;Arrival and Check-in;We will be welcoming you at the town hall with gadgets and the info for your accommodation;Meeting point: Town Hall;#fecc08
 2026-08-26;16:00;17:00;Tour of Amandola;Guided tour of the town and its main attractions;Meeting point: Town Hall;#fecc08
-2026-08-26;17:00;19:00;Socialisation game: get to know the students!;Surprise;;#458657
-2026-08-26;19:00;19:30;Opening of the school;;Meeting point: TbD;#9900ff
-2026-08-26;19:30;20:30;In defence of Europe;Lectio magistralis: Prof. Alessandro Mulieri, CNRS Paris;Meeting point: La Collegiata;#0000ff
-2026-08-26;20:30;22:00;Welcome typical dinner;;Meeting point: Casa del Parco;#ff9900
-2026-08-26;22:00;00:00;Socialising activity;Surprise;Meeting point: Town Hall;#458657
+2026-08-26;17:00;18:30;Socialisation game: get to know the students!;Surprise;;#458657
+2026-08-26;18:30;20:30;Opening of the school;;Meeting point: TbD;#9900ff
+2026-08-26;20:30;22:30;Welcome typical dinner;;Meeting point: Casa del Parco;#ff9900
+2026-08-26;22:30;00:00;Socialising activity;Surprise;Meeting point: Town Hall;#458657
 
 2026-08-27;09:15;10:30;History of EU and European Integration;Lecture by: Prof Alessandra Bitumi, University of Teramo;Meeting point: La Collegiata;#0000ff
-2026-08-27;10:30;11:00;Break;;;#ff9900
-2026-08-27;11:00;13:00;Presentation of the LUISS project;;Meeting point: La Collegiata;#0000ff
-2026-08-27;13:00;14:30;Lunch;;Meeting point: Casa del Parco;#ff9900
-2026-08-27;14:30;16:00;Working for the EU institutions - policies in action. Speed sessions;Lecture by: Pierpaolo Settembri [Transport]-Daniele Calisti [Competition]-Carla Pambianco [Gender Equality];Meeting point: La Collegiata;#0000ff
-2026-08-27;16:00;17:30;Climate Goals: winning the challenge of climate goals through the creation of skills and competences worldwide;Lecture by: Dott.ssa Ilaria Catastini, Fondazione Maire;Meeting point: La Collegiata;#0000ff
-2026-08-27;17:30;18:30;Break;;;#ff9900
-2026-08-27;18:30;20:00;Public panel: Europe in the Atlantic and the world;Speakers will be revealed soon;Meeting point: Town Hall;#9900ff
-2026-08-27;20:00;21:30;Dinner;;Meeting point: Casa del Parco;#ff9900
-2026-08-27;21:30;00:00;Karaoke night;;Meeting point: TbD;#458657
+2026-08-27;10:30;10:45;Break;;;#ff9900
+2026-08-27;10:45;12:30;Presentation of the LUISS project;Professor Christian Iaione [LUISS University of Rome] - François Decoster [Vice-President of the Region of Hauts-de-France, Mayor of Saint-Omer, President of the RENEW Group at the Committee of the Regions];Meeting point: La Collegiata;#0000ff
+2026-08-27;12:30;14:00;Lunch;;Meeting point: Casa del Parco;#ff9900
+2026-08-27;14:00;15:30;Working for the EU institutions - policies in action. Speed sessions;Lecture by: Pierpaolo Settembri [Transport]-Daniele Calisti [Competition]-Carla Pambianco [Gender Equality];Meeting point: La Collegiata;#0000ff
+2026-08-27;15:30;15:45;Break;;;#ff9900
+2026-08-27;15:45;18:00;Climate Goals: winning the challenge of climate goals through the creation of skills and competences worldwide;Lecture by: Dott.ssa Ilaria Catastini, Fondazione Maire;Meeting point: La Collegiata;#0000ff
+2026-08-27;18:00;19:00;“Buio Americano: Gli Stati Uniti e il Mondo nell’era Trump (American Darkness: The United States and the World in the Age of Trump);	Book presentation (in italian);Author: Mario Del Pero, Professor of International History and History of the United States at Sciences Po Discussants: tbc;#ff9900
+2026-08-27;19:00;20:30;Public panel: Europe in the Atlantic and the world;Speakers will be revealed soon;Meeting point: Town Hall;#9900ff
+2026-08-27;20:30;22:00;Dinner;;Meeting point: Casa del Parco;#ff9900
+2026-08-27;22:00;00:00;Karaoke night;;Meeting point: TbD;#458657
 
-2026-08-28;09:15;10:30;Jean Monnet Lecture;Lecture by: Prof. Cristiana Lauri;Meeting point: La Collegiata;#0000ff
-2026-08-28;10:30;11:00;Break;;;#ff9900
-2026-08-28;11:00;12:30;EU Digital Policies;Lecture by: Speakers will be revealed soon;Meeting point: La Collegiata;#0000ff
-2026-08-28;12:30;14:00;Lunch;;Meeting point: Casa del Parco;#ff9900
+2026-08-28;09:15;10:45;Jean Monnet Lecture;Lecture by: Prof. Cristiana Lauri;Meeting point: La Collegiata;#0000ff
+2026-08-28;10:45;11:00;Break;;;#ff9900
+2026-08-28;11:00;13:00;EU Digital Policies;Lecture by: Speakers will be revealed soon;Meeting point: La Collegiata;#0000ff
+2026-08-28;13:00;14:00;Lunch;;Meeting point: Casa del Parco;#ff9900
 2026-08-28;14:00;16:30;Career coffee;Meet the professional you want to become;Meeting point: Town Hall;#9900ff
 2026-08-28;16:30;18:30;Simulation exercise;;Meeting point: La Collegiata;#0000ff
 2026-08-28;18:30;20:30;Public panel: EU security and defence;Lecture by: Speakers will be revealed soon;Meeting point: Town Hall;#9900ff
@@ -29,7 +29,8 @@ Day;StartTime;EndTime;Title;Description;Location;Color
 2026-08-28;22:00;00:00;Party in Piazza;;Meeting point: Town Hall;#458657
 
 2026-08-29;09:00;11:00;Departure for the mountain;;Meeting point: TbD;#b7b7b7
-2026-08-29;11:00;13:00;The difficult path to the Union, from Ukraine to Turkey.;Mountain Lecture by: Prof. Enrico Albanesi, University of Genova - Prof Elif Küzeci, Bilkent University Ankara;Meeting point: Sibillini;#0000ff
+2026-08-29;11:00;12:30;The difficult path to the Union, from Ukraine to Turkey.;Mountain Lecture by: Prof. Enrico Albanesi, University of Genova - Prof Elif Küzeci, Bilkent University Ankara;Meeting point: Sibillini;#0000ff
+2026-08-29;12:30;13:00;Dispatch from Ukraine: negotiations on the ground.;Mountain Lecture by: Joanna Kaminska, Mediation, Security and Democratic transformation expert, European Parliament;Meeting point: Sibillini;#0000ff
 2026-08-29;13:00;15:00;Lunch;;;#ff9900
 2026-08-29;15:00;16:00;Return from the mountain;;;
 2026-08-29;16:00;18:00;CV Activity;How to create a perfect CV!;Meeting point: Casa del Parco;#9900ff
@@ -37,6 +38,6 @@ Day;StartTime;EndTime;Title;Description;Location;Color
 2026-08-29;20:00;00:00;Cena al contrario;Backwards dinner organised by Amandola Youth Organisation, CACUAM;Meeting point: TbD;#458657
 
 2026-08-30;10:00;11:00;Checkout;;;#b7b7b7
-2026-08-30;11:00;12:30;Book presentation and farewell ceremony;;;#9900ff
+2026-08-30;11:00;12:30;Farewell ceremony;;;#9900ff
 2026-08-30;12:30;14:30;Lunch;;;#ff9900
 2026-08-30;14:30;00:00;Goodbye!;End of programme and departure;;#fecc08
