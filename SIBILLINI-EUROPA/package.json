@@ -1,0 +1,22 @@
+{
+  "name": "sibillini-europa-platform",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "backend/*"
+  ],
+  "scripts": {
+    "dev:frontend": "npm --workspace frontend run dev",
+    "dev:gateway": "npm --workspace backend/api-gateway run dev",
+    "dev:auth": "npm --workspace backend/auth-service run dev",
+    "dev:content": "npm --workspace backend/content-service run dev",
+    "dev:media": "npm --workspace backend/media-service run dev",
+    "dev:schedule": "npm --workspace backend/schedule-service run dev",
+    "dev:backend": "concurrently \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:content\" \"npm run dev:media\" \"npm run dev:schedule\"",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

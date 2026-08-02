@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build:
+      context: ../backend/api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - AUTH_SERVICE_URL=http://auth-service:4101
+      - CONTENT_SERVICE_URL=http://content-service:4102
+      - MEDIA_SERVICE_URL=http://media-service:4103
+      - SCHEDULE_SERVICE_URL=http://schedule-service:4104
+    depends_on:
+      - auth-service
+      - content-service
+      - media-service
+      - schedule-service
+
+  auth-service:
+    build:
+      context: ../backend/auth-service
+    ports:
+      - "4101:4101"
+
+  content-service:
+    build:
+      context: ../backend/content-service
+    ports:
+      - "4102:4102"
+
+  media-service:
+    build:
+      context: ../backend/media-service
+    ports:
+      - "4103:4103"
+
+  schedule-service:
+    build:
+      context: ../backend/schedule-service
+    ports:
+      - "4104:4104"
