@@ -22,6 +22,35 @@ Initial implementation scaffold for the WordPress to MEVN migration.
 3. Start full stack (frontend + backend):
    - `npm run dev`
 
+## Docker local run
+
+From `infra/`:
+
+- `docker compose up --build`
+
+## Cloud Run deployment
+
+Deployment is automated by GitHub Actions:
+
+- workflow file: `.github/workflows/deploy-cloud-run.yml`
+
+Required GitHub repository secrets:
+
+- `GCP_PROJECT_ID`
+- `GCP_REGION`
+- `GCP_WORKLOAD_IDENTITY_PROVIDER`
+- `GCP_SERVICE_ACCOUNT`
+
+How it works:
+
+1. Build Docker images for frontend and all backend services.
+2. Push images to Artifact Registry (`sibillini-platform`).
+3. Deploy backend services (`auth-service`, `content-service`, `media-service`, `schedule-service`).
+4. Resolve backend URLs and deploy `api-gateway` with service env vars.
+5. Deploy frontend with `NUXT_PUBLIC_API_BASE` set to gateway URL.
+
+See detailed notes in `infra/cloudrun/README.md`.
+
 ## First endpoints
 
 - Gateway health: `GET http://localhost:8080/health`
