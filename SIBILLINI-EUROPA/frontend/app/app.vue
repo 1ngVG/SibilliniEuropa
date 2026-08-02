@@ -1,40 +1,39 @@
-<script setup lang="ts">
-const config = useRuntimeConfig();
-
-const { data, pending, error, refresh } = await useFetch("/health", {
-  baseURL: config.public.apiBase,
-  server: false
-});
+<script setup>
+import siteContent from "./content/site.json";
 </script>
 
 <template>
   <NuxtRouteAnnouncer />
   <main class="page-shell">
     <section class="hero">
-      <p class="kicker">Sibillini Europa</p>
-      <h1>MEVN Migration Bootstrap</h1>
+      <p class="kicker">{{ siteContent.hero.kicker }}</p>
+      <h1>{{ siteContent.hero.title }}</h1>
       <p>
-        Frontend Nuxt e backend a microservizi sono inizializzati. Questa pagina
-        verifica la connessione al gateway REST locale.
+        {{ siteContent.hero.subtitle }}
       </p>
     </section>
 
     <section class="panel">
-      <header class="panel-header">
-        <h2>Gateway Status</h2>
-        <button type="button" @click="refresh">Aggiorna</button>
-      </header>
+      <h2>Focus del sito</h2>
+      <ul class="highlights">
+        <li v-for="item in siteContent.highlights" :key="item.title" class="card">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </li>
+      </ul>
+    </section>
 
-      <p v-if="pending">Controllo in corso...</p>
-      <p v-else-if="error">Errore di connessione: {{ error.message }}</p>
-      <pre v-else>{{ data }}</pre>
+    <section class="panel">
+      <h2>Contatti</h2>
+      <p>Email: {{ siteContent.contacts.email }}</p>
+      <p>Localita: {{ siteContent.contacts.city }}</p>
     </section>
   </main>
 </template>
 
 <style scoped>
 .page-shell {
-  max-width: 960px;
+  max-inline-size: 960px;
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -42,7 +41,7 @@ const { data, pending, error, refresh } = await useFetch("/health", {
 }
 
 .hero {
-  margin-bottom: 1.5rem;
+  margin-block-end: 1.5rem;
   padding: 1.5rem;
   border: 1px solid #d8dde7;
   border-radius: 12px;
@@ -66,31 +65,29 @@ const { data, pending, error, refresh } = await useFetch("/health", {
   border-radius: 12px;
   padding: 1rem;
   background: #ffffff;
+  margin-block-end: 1rem;
 }
 
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.highlights {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.75rem;
-}
-
-button {
-  border: 1px solid #7f99cb;
-  background: #4f6fad;
-  color: #ffffff;
-  border-radius: 8px;
-  padding: 0.45rem 0.7rem;
-  cursor: pointer;
-}
-
-pre {
-  white-space: pre-wrap;
+  padding: 0;
   margin: 0;
-  padding: 0.9rem;
+}
+
+.card {
+  border: 1px solid #e3e7f0;
   border-radius: 8px;
-  background: #0e1729;
-  color: #d7e1f7;
-  overflow-x: auto;
+  padding: 0.75rem;
+}
+
+.card h3 {
+  margin: 0 0 0.4rem;
+}
+
+.card p {
+  margin: 0;
 }
 </style>

@@ -10,9 +10,6 @@ on:
         options:
           - staging
           - production
-  push:
-    branches:
-      - main
 
 permissions:
   contents: read

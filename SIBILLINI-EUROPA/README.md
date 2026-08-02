@@ -2,6 +2,8 @@
 
 Initial implementation scaffold for the WordPress to MEVN migration.
 
+Current priority: zero recurring cost hosting for the public website.
+
 ## Monorepo layout
 
 - `frontend/`: Nuxt 3 public website (Vue)
@@ -22,13 +24,23 @@ Initial implementation scaffold for the WordPress to MEVN migration.
 3. Start full stack (frontend + backend):
    - `npm run dev`
 
+## Zero-cost production path (recommended)
+
+Use static generation + GitHub Pages:
+
+1. Build static site: `npm --workspace frontend run generate`
+2. Deploy via workflow: `.github/workflows/deploy-pages-free.yml`
+3. Configure `www.sibillinieuropa.eu` as custom domain in GitHub Pages
+
+Detailed guide: `docs/zero-cost-hosting.md`.
+
 ## Docker local run
 
 From `infra/`:
 
 - `docker compose up --build`
 
-## Cloud Run deployment
+## Cloud Run deployment (optional later phase)
 
 Deployment is automated by GitHub Actions:
 
