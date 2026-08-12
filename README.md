@@ -64,6 +64,9 @@ Esempio con sorgente remota (due widget distinti):
 <div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
 ```
 
+Nota: a differenza di gallery/schedule, il partners widget legge il JSON via `fetch` runtime.
+Se il sito host (es. WordPress) e gli asset sono su domini diversi, servono header CORS sugli asset JSON/logo.
+
 Per il calendario settimanale:
 
 1. Compila `schedule/program.csv` con colonne `Day;StartTime;EndTime;Title;Description;Location;Color`.
@@ -109,6 +112,7 @@ Per il calendario:
 ## Netlify
 
 Il repository include [netlify.toml](netlify.toml), quindi su Netlify basta collegare la repo: il build command e la publish directory sono gia impostati.
+Sono inclusi anche header CORS per `generated/partners/*.json` e `generated/partners/logos/*`.
 
 ## GitHub Pages
 

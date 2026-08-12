@@ -195,10 +195,18 @@ async function resolvePartnersPayload(element) {
   const source = element.dataset.partnersSrc;
 
   if (source) {
-    const response = await fetch(new URL(source, getElementBaseUrl(element)));
+    const sourceUrl = new URL(source, getElementBaseUrl(element));
+    let response;
+
+    try {
+      response = await fetch(sourceUrl);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Unable to fetch partners data from ${sourceUrl.toString()} (${message})`);
+    }
 
     if (!response.ok) {
-      throw new Error(`Unable to load partners data (${response.status})`);
+      throw new Error(`Unable to load partners data from ${sourceUrl.toString()} (${response.status})`);
     }
 
     return response.json();
@@ -214,8 +222,8 @@ export async function initPartnersWidgets(root = document) {
     return;
   }
 
-  try {
-    for (const element of elements) {
+  for (const element of elements) {
+    try {
       element.dataset.pwInitialized = "true";
 
       const payload = await resolvePartnersPayload(element);
@@ -227,12 +235,8 @@ export async function initPartnersWidgets(root = document) {
       }
 
       renderPartners(element, config, getElementBaseUrl(element));
-    }
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unexpected partners widget error";
-
-    for (const element of elements) {
-      element.dataset.pwInitialized = "true";
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unexpected partners widget error";
       renderEmptyState(element, `Partners widget error: ${message}`, "error");
     }
   }

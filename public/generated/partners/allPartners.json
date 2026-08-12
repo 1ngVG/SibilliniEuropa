@@ -22,28 +22,28 @@
       "alt": "SAVE EU"
     },
     {
-      "name": "LUISS",
-      "url": "https://www.luiss.it/",
-      "logo": "generated/partners/logos/Luiss.png",
-      "alt": "LUISS"
-    },
-    {
       "name": "Universita di Teramo",
       "url": "https://www.unite.it/",
       "logo": "generated/partners/logos/UniTeramo.png",
       "alt": "Universita di Teramo"
     },
     {
-      "name": "LabGov",
-      "url": "https://labgov.city/",
-      "logo": "generated/partners/logos/LabGovLuiss_logo.jpg",
-      "alt": "LabGov"
+      "name": "LUISS",
+      "url": "https://www.luiss.it/",
+      "logo": "generated/partners/logos/Luiss.png",
+      "alt": "LUISS"
     },
     {
       "name": "LUISS Research Center",
       "url": "https://www.luiss.it/it/ricerca/ricerca-applicata/research-center-law-and-investment-future-and-earth",
       "logo": "generated/partners/logos/LifeLuiss_logo.jpg",
       "alt": "LUISS Research Center"
+    },
+    {
+      "name": "LabGov",
+      "url": "https://labgov.city/",
+      "logo": "generated/partners/logos/LabGovLuiss_logo.jpg",
+      "alt": "LabGov"
     },
     {
       "name": "Salumificio Ciriaci",

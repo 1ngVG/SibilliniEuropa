@@ -1,25 +1,24 @@
 {
-  "title": "Institutional Partners",
-  "subtitle": "Partnership istituzionali",
+  "title": "Under the Patronage of",
   "cta": "Scopri di più",
   "partners": [
     {
-      "name": "SAVE EU",
-      "url": "https://giurisprudenza.unimc.it/it/didattica/jean-monnet/save-eu/",
-      "logo": "generated/partners/logos/SAVE-EU.jpg",
-      "alt": "SAVE EU"
+      "name": "Città di Amandola",
+      "url": "https://www.comune.amandola.fm.it/",
+      "logo": "generated/partners/logos/Amandola.png    ",
+      "alt": "Città di Amandola"
     },
     {
-      "name": "LUISS",
-      "url": "https://www.luiss.it/",
-      "logo": "generated/partners/logos/Luiss.png",
-      "alt": "LUISS"
+      "name": "European Parliament",
+      "url": "https://www.europarl.europa.eu/",
+      "logo": "generated/partners/logos/Logo_ParlamentoEuropeo.jpg",
+      "alt": "European Parliament"
     },
     {
-      "name": "Universita di Teramo",
-      "url": "https://www.unite.it/",
-      "logo": "generated/partners/logos/UniTeramo.png",
-      "alt": "Universita di Teramo"
+      "name": "European Commission",
+      "url": "https://ec.europa.eu/commission/index_en",
+      "logo": "generated/partners/logos/Logo_CommissioneEuropea.jpg",
+      "alt": "European Commission"
     }
   ]
 }
