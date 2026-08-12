@@ -7,16 +7,20 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "build:clean": "node src/scripts/clean-dist.js",
     "dev": "astro dev",
     "build:galleries": "node src/scripts/build-galleries.js",
     "build:partners-data": "node src/scripts/build-partners.js",
     "build:schedule": "node src/scripts/build-schedule.js",
-    "build:widget": "vite build --config vite.widget.config.mjs",
+    "build:demo-page": "node src/scripts/build-demo-page.js",
+    "build:gallery-widget": "vite build --config vite.widget.config.mjs",
+    "build:widget": "npm run build:gallery-widget",
     "build:partners-widget": "vite build --config vite.partners.config.mjs",
     "build:schedule-widget": "vite build --config vite.schedule.config.mjs",
-    "build:demo": "astro build",
-    "build": "npm run build:galleries && npm run build:partners-data && npm run build:schedule && npm run build:widget && npm run build:partners-widget && npm run build:schedule-widget",
-    "preview": "vite preview --config vite.widget.config.mjs"
+    "build:demo": "npm run build:demo-page && astro build",
+    "build": "npm run build:clean && npm run build:galleries && npm run build:partners-data && npm run build:schedule && npm run build:demo-page && npm run build:gallery-widget && npm run build:partners-widget && npm run build:schedule-widget",
+    "preview:gallery-widget": "vite preview --config vite.widget.config.mjs",
+    "preview": "npm run preview:gallery-widget"
   },
   "dependencies": {
     "astro": "^5.9.0",

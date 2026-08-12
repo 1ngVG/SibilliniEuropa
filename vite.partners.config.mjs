@@ -1,29 +1,9 @@
-import { defineConfig } from "vite";
 import { resolve } from "node:path";
+import { createWidgetViteConfig } from "./src/build/create-widget-vite-config.mjs";
 
-export default defineConfig({
-  publicDir: "public",
-  build: {
-    outDir: "dist",
-    emptyOutDir: false,
-    cssCodeSplit: false,
-    lib: {
-      entry: resolve("src/partners/widget.js"),
-      cssFileName: "partners-widget",
-      name: "SibilliniEuropaPartnersWidget",
-      formats: ["iife"],
-      fileName: () => "partners-widget.js"
-    },
-    rollupOptions: {
-      output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === "partners-widget.css") {
-            return "partners-widget.css";
-          }
-
-          return "assets/[name][extname]";
-        }
-      }
-    }
-  }
+export default createWidgetViteConfig({
+  entry: resolve("src/partners/widget.js"),
+  cssFileName: "partners-widget",
+  bundleName: "SibilliniEuropaPartnersWidget",
+  fileName: "partners-widget.js"
 });

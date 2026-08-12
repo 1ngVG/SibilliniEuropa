@@ -35,10 +35,7 @@ function setupCarousel(root) {
   };
 
   const scrollByStep = (direction) => {
-    viewport.scrollBy({
-      left: getStep() * direction,
-      behavior: "smooth"
-    });
+    viewport.scrollBy(getStep() * direction, 0);
   };
 
   previousButton?.addEventListener("click", () => {

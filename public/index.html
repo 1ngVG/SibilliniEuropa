@@ -9,47 +9,49 @@
     <link rel="stylesheet" href="./partners-widget.css">
     <link rel="stylesheet" href="./schedule-widget.css">
     <style>
-      :root {
-        color-scheme: light;
-        font-family: Georgia, "Times New Roman", serif;
-        background: #f4f0e8;
-        color: #1f2937;
-      }
 
-      body {
-        margin: 0;
-        min-block-size: 100vh;
-        background:
-          radial-gradient(circle at top left, rgba(191, 219, 254, 0.45), transparent 35%),
-          linear-gradient(180deg, #f8f5ef 0%, #f0ece3 100%);
-      }
+:root {
+  color-scheme: light;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f4f0e8;
+  color: #1f2937;
+}
 
-      main {
-        max-inline-size: 1100px;
-        margin: 0 auto;
-        padding: 4rem 1.5rem 6rem;
-      }
+body {
+  margin: 0;
+  min-block-size: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(191, 219, 254, 0.45), transparent 35%),
+    linear-gradient(180deg, #f8f5ef 0%, #f0ece3 100%);
+}
 
-      h1 {
-        margin: 0 0 1rem;
-        font-size: clamp(2.2rem, 5vw, 4rem);
-      }
+main {
+  max-inline-size: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
 
-      p {
-        max-inline-size: 66ch;
-        line-height: 1.7;
-      }
+h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
 
-      .demo-columns {
-        display: grid;
-        gap: 2rem;
-      }
+p {
+  max-inline-size: 66ch;
+  line-height: 1.7;
+}
 
-      code {
-        padding: 0.12rem 0.4rem;
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.08);
-      }
+.demo-columns {
+  display: grid;
+  gap: 2rem;
+}
+
+code {
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+}
+
     </style>
   </head>
   <body>
@@ -61,8 +63,8 @@
       </p>
       <div class="demo-columns">
         <div class="gallery-widget" data-gallery="Sess25"></div>
-        <div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
-        <div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
+        <div class="partners-widget" data-partners-set="institutional"></div>
+        <div class="partners-widget" data-partners-set="allPartners"></div>
         <div class="schedule-widget" data-schedule="program"></div>
       </div>
     </main>

@@ -1,82 +1,27 @@
 ---
+import { renderShowcaseLeadHtml, renderShowcaseWidgets, showcaseStyles, showcaseTitle } from "../demo/showcase.js";
+---
 
 <html lang="it">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sibillini Europa Gallery Widget</title>
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: Georgia, "Times New Roman", serif;
-        background: #f4f0e8;
-        color: #1f2937;
-      }
-
-      body {
-        margin: 0;
-        min-block-size: 100vh;
-        background:
-          radial-gradient(circle at top left, rgba(191, 219, 254, 0.45), transparent 35%),
-          linear-gradient(180deg, #f8f5ef 0%, #f0ece3 100%);
-      }
-
-      main {
-        max-inline-size: 1100px;
-        margin: 0 auto;
-        padding: 4rem 1.5rem 6rem;
-      }
-
-      h1 {
-        margin: 0 0 1rem;
-        font-size: clamp(2.2rem, 5vw, 4rem);
-      }
-
-      p {
-        max-inline-size: 66ch;
-        font-size: 1.05rem;
-        line-height: 1.7;
-      }
-
-      section + section {
-        margin-block-start: 3rem;
-      }
-
-      .demo-columns {
-        display: grid;
-        gap: 2rem;
-      }
-    </style>
+    <title>{showcaseTitle}</title>
+    <style is:inline>{showcaseStyles}</style>
     <script>
       window.GALLERY_WIDGET_BASE_URL = "/";
     </script>
     <script type="module">
-      import "../widget/widget.js";
+      import "../gallery/widget.js";
       import "../partners/widget.js";
+      import "../schedule/schedule.js";
     </script>
   </head>
   <body>
     <main>
-      <h1>Standalone widgets</h1>
-      <p>
-        Questa pagina Astro serve solo per verificare localmente i widget embeddabili.
-        In produzione WordPress usera i bundle statici buildati da Vite.
-      </p>
-
-      <div class="demo-columns">
-        <section>
-          <h2>Sess25</h2>
-          <div class="gallery-widget" data-gallery="Sess25"></div>
-        </section>
-
-        <section>
-          <div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
-        </section>
-
-        <section>
-          <div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
-        </section>
-      </div>
+      <h1>{showcaseTitle}</h1>
+      <p set:html={renderShowcaseLeadHtml()}></p>
+      <div class="demo-columns" set:html={renderShowcaseWidgets()}></div>
     </main>
   </body>
 </html>

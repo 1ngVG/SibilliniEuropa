@@ -1,41 +1,14 @@
 import "./widget.css";
-
-let instanceCounter = 0;
+import partnersManifest from "../generated/partners-manifest.js";
+import { escapeHtml } from "../shared/html.js";
+import { createInstanceId, findPendingWidgets, markWidgetInitialized, renderWidgetState } from "../shared/widgets.js";
+import { resolveElementBaseUrl, resolveSourceUrl } from "../shared/urls.js";
 
 function getElementBaseUrl(element) {
-  const localBase = element.dataset.partnersBase;
-
-  if (localBase) {
-    return new URL(localBase, window.location.href);
-  }
-
-  return new URL(window.location.href);
-}
-
-function resolvePartnersSourceUrl(element, source) {
-  if (/^https?:\/\//i.test(source)) {
-    return new URL(source);
-  }
-
-  if (source.startsWith("/")) {
-    return new URL(source, window.location.origin);
-  }
-
-  return new URL(source, getElementBaseUrl(element));
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function renderEmptyState(element, message, state) {
-  element.dataset.state = state;
-  element.textContent = message;
+  return resolveElementBaseUrl(element, {
+    dataAttribute: "partnersBase",
+    scriptFileName: "partners-widget.js"
+  });
 }
 
 function readJsonPayload(element) {
@@ -60,6 +33,16 @@ function readJsonPayload(element) {
   }
 
   return null;
+}
+
+function readManifestPayload(element) {
+  const setKey = element.dataset.partnersSet;
+
+  if (!setKey) {
+    return null;
+  }
+
+  return partnersManifest[setKey] ?? null;
 }
 
 function normalizePartners(payload) {
@@ -113,16 +96,16 @@ function renderPartners(element, config, baseUrl) {
     .filter(Boolean);
 
   if (partners.length === 0) {
-    renderEmptyState(element, "No partner data available.", "empty");
+    renderWidgetState(element, "No partner data available.", "empty");
     return;
   }
 
   if (partners.length < 3) {
-    renderEmptyState(element, "Partners widget requires at least 3 partners.", "error");
+    renderWidgetState(element, "Partners widget requires at least 3 partners.", "error");
     return;
   }
 
-  const widgetId = `pw-${instanceCounter += 1}`;
+  const widgetId = createInstanceId("pw");
 
   element.dataset.state = "ready";
   element.innerHTML = `
@@ -163,6 +146,12 @@ function renderPartners(element, config, baseUrl) {
 }
 
 async function resolvePartnersPayload(element) {
+  const manifestPayload = readManifestPayload(element);
+
+  if (manifestPayload) {
+    return manifestPayload;
+  }
+
   const payload = readJsonPayload(element);
 
   if (payload) {
@@ -172,7 +161,10 @@ async function resolvePartnersPayload(element) {
   const source = element.dataset.partnersSrc;
 
   if (source) {
-    const sourceUrl = resolvePartnersSourceUrl(element, source);
+    const sourceUrl = resolveSourceUrl(element, source, {
+      dataAttribute: "partnersBase",
+      scriptFileName: "partners-widget.js"
+    });
     let response;
 
     try {
@@ -193,7 +185,7 @@ async function resolvePartnersPayload(element) {
 }
 
 export async function initPartnersWidgets(root = document) {
-  const elements = [...root.querySelectorAll(".partners-widget")].filter((element) => element.dataset.pwInitialized !== "true");
+  const elements = findPendingWidgets(root, ".partners-widget", "pwInitialized");
 
   if (elements.length === 0) {
     return;
@@ -201,20 +193,20 @@ export async function initPartnersWidgets(root = document) {
 
   for (const element of elements) {
     try {
-      element.dataset.pwInitialized = "true";
+      markWidgetInitialized(element, "pwInitialized");
 
       const payload = await resolvePartnersPayload(element);
       const config = normalizePartners(payload);
 
       if (!config) {
-        renderEmptyState(element, "Partners widget data missing or invalid.", "empty");
+        renderWidgetState(element, "Partners widget data missing or invalid.", "empty");
         continue;
       }
 
       renderPartners(element, config, getElementBaseUrl(element));
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unexpected partners widget error";
-      renderEmptyState(element, `Partners widget error: ${message}`, "error");
+      renderWidgetState(element, `Partners widget error: ${message}`, "error");
     }
   }
 }

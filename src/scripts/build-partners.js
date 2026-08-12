@@ -5,6 +5,7 @@ const INPUT_DIR = path.resolve("partners");
 const OUTPUT_DIR = path.resolve("public/generated/partners");
 const INPUT_LOGOS_DIR = path.resolve("partners/logos");
 const OUTPUT_LOGOS_DIR = path.resolve("public/generated/partners/logos");
+const MANIFEST_MODULE_PATH = path.resolve("src/generated/partners-manifest.js");
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -26,6 +27,12 @@ function copyLogos() {
   }
 
   return logoFiles.length;
+}
+
+function writeManifestModule(partnerSets) {
+  const content = `const partnersManifest = ${JSON.stringify(partnerSets, null, 2)};\n\nexport default partnersManifest;\n`;
+  ensureDir(path.dirname(MANIFEST_MODULE_PATH));
+  fs.writeFileSync(MANIFEST_MODULE_PATH, content);
 }
 
 function normalizePartner(entry, index) {
@@ -109,6 +116,7 @@ function buildPartners() {
 
   const copiedLogos = copyLogos();
   let publishedCount = 0;
+  const partnerSets = {};
 
   for (const fileName of files) {
     const sourcePath = path.join(INPUT_DIR, fileName);
@@ -125,12 +133,15 @@ function buildPartners() {
       const payload = normalizePayload(sourcePath, parsed);
 
       fs.writeFileSync(outputPath, `${JSON.stringify(payload, null, 2)}\n`);
+      partnerSets[path.basename(fileName, path.extname(fileName))] = payload;
       publishedCount += 1;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`Skipped ${fileName}: ${message}`);
     }
   }
+
+  writeManifestModule(partnerSets);
 
   console.log(`Published ${publishedCount} partner dataset(s) to ${OUTPUT_DIR} (copied ${copiedLogos} logos)`);
 }

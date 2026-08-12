@@ -1,19 +1,12 @@
 import "./schedule.css";
 import scheduleManifest from "../generated/schedule-manifest.js";
+import { escapeHtml } from "../shared/html.js";
+import { findPendingWidgets, markWidgetInitialized, renderWidgetState } from "../shared/widgets.js";
 
 const DAY_START = 8 * 60;
 const DAY_END = 24 * 60;
 const HOUR_HEIGHT = 66;
 const SLOT_MINUTES = 60;
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
 
 function parseTimeToMinutes(value) {
   const [hoursText, minutesText] = String(value).split(":");
@@ -194,7 +187,7 @@ function renderSchedule(element, scheduleKey, scheduleData) {
   const days = buildWeekDays(scheduleData);
 
   if (days.length === 0) {
-    renderState(element, `Schedule "${scheduleKey}" has no days.`, "empty");
+    renderWidgetState(element, `Schedule "${scheduleKey}" has no days.`, "empty");
     return;
   }
 
@@ -246,13 +239,8 @@ function renderSchedule(element, scheduleKey, scheduleData) {
   }
 }
 
-function renderState(element, message, state) {
-  element.dataset.state = state;
-  element.textContent = message;
-}
-
 export function initScheduleWidgets(root = document) {
-  const widgets = [...root.querySelectorAll(".schedule-widget")].filter((element) => element.dataset.swInitialized !== "true");
+  const widgets = findPendingWidgets(root, ".schedule-widget", "swInitialized");
 
   if (widgets.length === 0) {
     return;
@@ -261,10 +249,10 @@ export function initScheduleWidgets(root = document) {
   for (const element of widgets) {
     const key = element.dataset.schedule || "program";
     const scheduleData = scheduleManifest[key];
-    element.dataset.swInitialized = "true";
+    markWidgetInitialized(element, "swInitialized");
 
     if (!scheduleData || !Array.isArray(scheduleData.days) || scheduleData.days.length === 0) {
-      renderState(element, `Schedule "${key}" is empty or missing.`, "empty");
+      renderWidgetState(element, `Schedule "${key}" is empty or missing.`, "empty");
       continue;
     }
 

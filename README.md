@@ -22,11 +22,13 @@ partners/
   allPartners.json
   institutional.json
 src/
+  demo/
+  gallery/
   partners/
   schedule/
   pages/
   scripts/
-  widget/
+  shared/
 ```
 
 ## Workflow
@@ -41,8 +43,18 @@ Per il widget partner:
 
 1. Inserisci i dati partner in uno o piu file JSON dentro `partners/` (ad esempio `institutional.json` e `allPartners.json`).
 2. Ogni partner deve avere almeno `name`, `url` e `logo`.
-3. Esegui `npm run build:partners-data` (oppure `npm run build`).
+3. Esegui `npm run build:partners-data` (oppure `npm run build`). Questo genera sia gli asset runtime in `public/generated/partners/` sia il manifest build-time in `src/generated/partners-manifest.js`.
 4. In WordPress importa `partners-widget.css`, `partners-widget.js` e aggiungi i contenitori `.partners-widget`.
+
+Modalita consigliata: set build-time tramite chiave dataset.
+
+```html
+<link rel="stylesheet" href="https://your-static-host.example/partners-widget.css">
+<script defer src="https://your-static-host.example/partners-widget.js"></script>
+
+<div class="partners-widget" data-partners-set="institutional"></div>
+<div class="partners-widget" data-partners-set="allPartners"></div>
+```
 
 Esempio con JSON inline:
 
@@ -57,15 +69,14 @@ Esempio con JSON inline:
 </div>
 ```
 
-Esempio con sorgente remota (due widget distinti):
+Modalita compatibile con sorgente remota:
 
 ```html
 <div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
 <div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
 ```
 
-Nota: a differenza di gallery/schedule, il partners widget legge il JSON via `fetch` runtime.
-Se il sito host (es. WordPress) e gli asset sono su domini diversi, servono header CORS sugli asset JSON/logo.
+La modalita `data-partners-src` resta disponibile come fallback, ma la modalita `data-partners-set` e ora l'architettura primaria per ridurre fetch runtime e problemi di hosting.
 
 Per il calendario settimanale:
 
@@ -77,7 +88,11 @@ Slug attuale pubblicato nel repository: `Sess25`.
 
 Dopo il deploy, la root del sito pubblicato mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
 
-Il widget e pensato per embed cross-site: usa un bundle JS classico e non richiede fetch runtime del manifest JSON.
+La demo locale Astro (`src/pages/index.astro`) e la preview statica pubblicata (`public/index.html`) condividono la stessa source of truth in `src/demo/showcase.js`. La preview statica viene rigenerata con `npm run build:demo-page`.
+
+La build completa pulisce `dist/` una sola volta con `npm run build:clean`, poi genera tutti gli artifact con la stessa policy di output. I singoli build `build:gallery-widget`, `build:partners-widget` e `build:schedule-widget` non svuotano piu `dist/` autonomamente.
+
+Il widget e pensato per embed cross-site: usa bundle JS classici. Gallery, schedule e partners possono essere consumati senza fetch runtime quando usi i manifest build-time.
 
 ## Embed WordPress
 
@@ -100,10 +115,13 @@ Per il calendario:
 ## Comandi
 
 - `npm run dev`: demo locale Astro
+- `npm run build:clean`: pulisce esplicitamente `dist/`
+- `npm run build:demo-page`: rigenera `public/index.html` dalla source of truth condivisa della demo
 - `npm run build:galleries`: genera immagini ottimizzate e manifest JSON
-- `npm run build:partners-data`: valida e pubblica i JSON partner in `public/generated/partners/`
+- `npm run build:partners-data`: valida e pubblica i JSON partner in `public/generated/partners/` e rigenera `src/generated/partners-manifest.js`
 - `npm run build:schedule`: genera il manifest schedule da CSV
-- `npm run build:widget`: genera il bundle standalone del widget
+- `npm run build:gallery-widget`: genera il bundle standalone del widget gallery
+- `npm run build:widget`: alias compatibile di `build:gallery-widget`
 - `npm run build:partners-widget`: genera il bundle standalone del widget partner
 - `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
 - `npm run build`: build del widget deployabile
@@ -135,8 +153,8 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 <link rel="stylesheet" href="https://<user>.github.io/<repo>/partners-widget.css">
 <script defer src="https://<user>.github.io/<repo>/partners-widget.js"></script>
 
-<div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
-<div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
+<div class="partners-widget" data-partners-set="institutional"></div>
+<div class="partners-widget" data-partners-set="allPartners"></div>
 ```
 
 ```html

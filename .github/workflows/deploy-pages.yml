@@ -30,8 +30,12 @@ jobs:
             galleries:
               - 'galleries/**'
             gallery-widget:
-              - 'src/widget/**'
+              - 'src/gallery/**'
               - 'vite.widget.config.mjs'
+            partners:
+              - 'partners/**'
+              - 'src/partners/**'
+              - 'vite.partners.config.mjs'
             schedule:
               - 'schedule/**'
             schedule-widget:
@@ -61,7 +65,15 @@ jobs:
 
       - name: Build gallery widget
         if: steps.changes.outputs.galleries == 'true' || steps.changes.outputs.gallery-widget == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
-        run: npm run build:widget
+        run: npm run build:gallery-widget
+
+      - name: Build partners data
+        if: steps.changes.outputs.partners == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:partners-data
+
+      - name: Build partners widget
+        if: steps.changes.outputs.partners == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
+        run: npm run build:partners-widget
 
       - name: Build schedule manifest
         if: steps.changes.outputs.schedule == 'true' || steps.dist-cache.outputs.cache-hit != 'true'
