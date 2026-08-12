@@ -51,6 +51,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Sync content from remote archives (optional)
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets['GOOGLE_SERVICE_ACCOUNT_JSON'] }}
+          DRIVE_GALLERIES_FOLDER_ID: ${{ secrets['DRIVE_GALLERIES_FOLDER_ID'] }}
+          DRIVE_PARTNERS_FOLDER_ID: ${{ secrets['DRIVE_PARTNERS_FOLDER_ID'] }}
+          DRIVE_SCHEDULE_FOLDER_ID: ${{ secrets['DRIVE_SCHEDULE_FOLDER_ID'] }}
+          CONTENT_GALLERIES_URL: ${{ secrets['CONTENT_GALLERIES_URL'] }}
+          CONTENT_PARTNERS_URL: ${{ secrets['CONTENT_PARTNERS_URL'] }}
+          CONTENT_SCHEDULE_URL: ${{ secrets['CONTENT_SCHEDULE_URL'] }}
+        run: npm run sync:content
+
       - name: Restore dist cache
         id: dist-cache
         uses: actions/cache@v4

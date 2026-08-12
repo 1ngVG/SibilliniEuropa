@@ -165,3 +165,71 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 
 <div class="schedule-widget" data-schedule="program"></div>
 ```
+
+## Contenuti fuori repository (Google Drive)
+
+Puoi tenere immagini gallerie, loghi partner e CSV programma fuori dalla repo e scaricarli in CI al momento della build.
+
+### Opzione 2 (consigliata): cartelle Drive + Service Account
+
+Il workflow puo sincronizzare direttamente 3 cartelle Drive condivise:
+
+- cartella gallerie -> `content/galleries`
+- cartella partners -> `content/partners`
+- cartella schedule -> `content/schedule`
+
+Secret richiesti:
+
+- `GOOGLE_SERVICE_ACCOUNT_JSON`: JSON completo della chiave service account
+- `DRIVE_GALLERIES_FOLDER_ID`: ID cartella Drive gallerie
+- `DRIVE_PARTNERS_FOLDER_ID`: ID cartella Drive partners
+- `DRIVE_SCHEDULE_FOLDER_ID`: ID cartella Drive schedule
+
+Come ricavare il folder ID:
+
+- link cartella: `https://drive.google.com/drive/folders/<FOLDER_ID>`
+- usa la parte `<FOLDER_ID>` come valore del secret
+
+Permessi da impostare su Drive:
+
+1. apri le 3 cartelle Drive
+2. condividi ogni cartella con l'email del service account (`client_email` presente nel JSON)
+3. ruolo: Viewer
+
+Struttura attesa delle cartelle:
+
+- gallerie: sottocartelle evento (esempio `Sess25/`) con immagini `jpg`, `jpeg`, `png`
+- partners: file JSON dataset (`allPartners.json`, `institutional.json`) e cartella `logos/`
+- schedule: file `program.csv` (oppure anche Google Sheet esportabile in CSV)
+
+Script usato in CI:
+
+- `npm run sync:content`
+  - prima prova sync da cartelle Drive
+  - poi esegue fallback URL archive (opzione 1)
+
+Quando i secret Drive non sono valorizzati, la build continua a usare il contenuto locale in `content/`.
+
+### Opzione 1 (fallback): URL diretti a archivi tar.gz
+
+Il workflow supporta 3 secret opzionali:
+
+- `CONTENT_GALLERIES_URL`
+- `CONTENT_PARTNERS_URL`
+- `CONTENT_SCHEDULE_URL`
+
+Ogni URL deve puntare a un archivio `.tar.gz` scaricabile (ad esempio link pubblico da Google Drive trasformato in download diretto).
+
+Struttura attesa dentro gli archivi:
+
+- `CONTENT_GALLERIES_URL`: file immagini direttamente dentro sottocartelle galleria (esempio `Sess25/foto1.jpg`)
+- `CONTENT_PARTNERS_URL`: JSON dataset + cartella `logos/` (esempio `allPartners.json`, `institutional.json`, `logos/logo1.png`)
+- `CONTENT_SCHEDULE_URL`: file `program.csv` alla root dell'archivio
+
+Quando i secret non sono valorizzati, la build usa normalmente i file presenti in `content/` locale.
+
+Script disponibile:
+
+- `npm run sync:content`: sincronizza le 3 sorgenti remote (se configurate) dentro `content/`
+
+Suggerimento pratico: in locale mantieni una copia minima per sviluppo, mentre in produzione (GitHub Actions) usi i secret URL per evitare di versionare asset pesanti.
