@@ -34,7 +34,7 @@ src/
 1. Inserisci le immagini originali dentro `galleries/<slug-galleria>/`.
 2. Esegui `npm install`.
 3. Esegui `npm run build`.
-4. Pubblica la cartella `dist/` su Netlify.
+4. Pubblica la cartella `dist/` sul tuo hosting statico.
 5. In WordPress importa `gallery-widget.css`, `gallery-widget.js` e aggiungi i contenitori `.gallery-widget`.
 
 Per il widget partner:
@@ -47,8 +47,8 @@ Per il widget partner:
 Esempio con JSON inline:
 
 ```html
-<link rel="stylesheet" href="https://your-netlify-site.netlify.app/partners-widget.css">
-<script defer src="https://your-netlify-site.netlify.app/partners-widget.js"></script>
+<link rel="stylesheet" href="https://your-static-host.example/partners-widget.css">
+<script defer src="https://your-static-host.example/partners-widget.js"></script>
 
 <div class="partners-widget">
   <script type="application/json" data-partners-data>
@@ -75,15 +75,15 @@ Per il calendario settimanale:
 
 Slug attuale pubblicato nel repository: `Sess25`.
 
-Dopo il deploy, la root del sito Netlify mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
+Dopo il deploy, la root del sito pubblicato mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
 
 Il widget e pensato per embed cross-site: usa un bundle JS classico e non richiede fetch runtime del manifest JSON.
 
 ## Embed WordPress
 
 ```html
-<link rel="stylesheet" href="https://your-netlify-site.netlify.app/gallery-widget.css">
-<script defer src="https://your-netlify-site.netlify.app/gallery-widget.js"></script>
+<link rel="stylesheet" href="https://your-static-host.example/gallery-widget.css">
+<script defer src="https://your-static-host.example/gallery-widget.js"></script>
 
 <div class="gallery-widget" data-gallery="Sess25"></div>
 ```
@@ -91,8 +91,8 @@ Il widget e pensato per embed cross-site: usa un bundle JS classico e non richie
 Per il calendario:
 
 ```html
-<link rel="stylesheet" href="https://your-netlify-site.netlify.app/schedule-widget.css">
-<script defer src="https://your-netlify-site.netlify.app/schedule-widget.js"></script>
+<link rel="stylesheet" href="https://your-static-host.example/schedule-widget.css">
+<script defer src="https://your-static-host.example/schedule-widget.js"></script>
 
 <div class="schedule-widget" data-schedule="program"></div>
 ```
@@ -108,11 +108,6 @@ Per il calendario:
 - `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
 - `npm run build`: build del widget deployabile
 - `npm run build:demo`: build opzionale della pagina demo Astro
-
-## Netlify
-
-Il repository include [netlify.toml](netlify.toml), quindi su Netlify basta collegare la repo: il build command e la publish directory sono gia impostati.
-Sono inclusi anche header CORS per `generated/partners/*.json` e `generated/partners/logos/*`.
 
 ## GitHub Pages
 
