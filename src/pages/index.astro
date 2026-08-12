@@ -1,5 +1,4 @@
 ---
----
 
 <html lang="it">
   <head>
@@ -42,26 +41,43 @@
       section + section {
         margin-block-start: 3rem;
       }
+
+      .demo-columns {
+        display: grid;
+        gap: 2rem;
+      }
     </style>
     <script>
       window.GALLERY_WIDGET_BASE_URL = "/";
+      window.PARTNERS_WIDGET_BASE_URL = "/";
     </script>
     <script type="module">
       import "../widget/widget.js";
+      import "../partners/widget.js";
     </script>
   </head>
   <body>
     <main>
-      <h1>Standalone gallery widget</h1>
+      <h1>Standalone widgets</h1>
       <p>
-        Questa pagina Astro serve solo per verificare localmente il widget embeddabile.
-        In produzione WordPress usera il bundle statico buildato da Vite.
+        Questa pagina Astro serve solo per verificare localmente i widget embeddabili.
+        In produzione WordPress usera i bundle statici buildati da Vite.
       </p>
 
-      <section>
-        <h2>Sess25</h2>
-        <div class="gallery-widget" data-gallery="Sess25"></div>
-      </section>
+      <div class="demo-columns">
+        <section>
+          <h2>Sess25</h2>
+          <div class="gallery-widget" data-gallery="Sess25"></div>
+        </section>
+
+        <section>
+          <div class="partners-widget" data-partners-src="/generated/partners/institutional.json"></div>
+        </section>
+
+        <section>
+          <div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
+        </section>
+      </div>
     </main>
   </body>
 </html>

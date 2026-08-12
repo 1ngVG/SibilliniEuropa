@@ -1,6 +1,6 @@
 # SibilliniEuropa
 
-Widget standalone per sibillinieuropa.eu (galleria foto + calendario settimanale).
+Widget standalone per sibillinieuropa.eu (galleria foto, sezione partner dinamica + calendario settimanale).
 
 ## Stack
 
@@ -18,7 +18,11 @@ schedule/
   program.csv
 public/
   generated/
+partners/
+  allPartners.json
+  institutional.json
 src/
+  partners/
   schedule/
   pages/
   scripts/
@@ -32,6 +36,33 @@ src/
 3. Esegui `npm run build`.
 4. Pubblica la cartella `dist/` su Netlify.
 5. In WordPress importa `gallery-widget.css`, `gallery-widget.js` e aggiungi i contenitori `.gallery-widget`.
+
+Per il widget partner:
+
+1. Inserisci i dati partner in uno o piu file JSON dentro `partners/` (ad esempio `institutional.json` e `allPartners.json`).
+2. Ogni partner deve avere almeno `name`, `url` e `logo`.
+3. Esegui `npm run build:partners-data` (oppure `npm run build`).
+4. In WordPress importa `partners-widget.css`, `partners-widget.js` e aggiungi i contenitori `.partners-widget`.
+
+Esempio con JSON inline:
+
+```html
+<link rel="stylesheet" href="https://your-netlify-site.netlify.app/partners-widget.css">
+<script defer src="https://your-netlify-site.netlify.app/partners-widget.js"></script>
+
+<div class="partners-widget">
+  <script type="application/json" data-partners-data>
+    {"title":"All Our Partners","cta":"Scopri di più","partners":[{"name":"Partner Uno","url":"https://example.com","logo":"/images/partner-uno.svg","alt":"Partner Uno"}]}
+  </script>
+</div>
+```
+
+Esempio con sorgente remota (due widget distinti):
+
+```html
+<div class="partners-widget" data-partners-src="/generated/partners/institutional.json"></div>
+<div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
+```
 
 Per il calendario settimanale:
 
@@ -67,8 +98,10 @@ Per il calendario:
 
 - `npm run dev`: demo locale Astro
 - `npm run build:galleries`: genera immagini ottimizzate e manifest JSON
+- `npm run build:partners-data`: valida e pubblica i JSON partner in `public/generated/partners/`
 - `npm run build:schedule`: genera il manifest schedule da CSV
 - `npm run build:widget`: genera il bundle standalone del widget
+- `npm run build:partners-widget`: genera il bundle standalone del widget partner
 - `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
 - `npm run build`: build del widget deployabile
 - `npm run build:demo`: build opzionale della pagina demo Astro
@@ -97,6 +130,14 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 <script defer src="https://<user>.github.io/<repo>/gallery-widget.js"></script>
 
 <div class="gallery-widget" data-gallery="Sess25"></div>
+```
+
+```html
+<link rel="stylesheet" href="https://<user>.github.io/<repo>/partners-widget.css">
+<script defer src="https://<user>.github.io/<repo>/partners-widget.js"></script>
+
+<div class="partners-widget" data-partners-src="/generated/partners/institutional.json"></div>
+<div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
 ```
 
 ```html
