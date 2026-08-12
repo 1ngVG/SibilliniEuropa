@@ -3,7 +3,7 @@ import path from "node:path";
 import sharp from "sharp";
 import fg from "fast-glob";
 
-const INPUT_DIR = path.resolve("galleries");
+const INPUT_DIR = path.resolve("content/galleries");
 const OUTPUT_DIR = path.resolve("public/generated");
 const MANIFEST_MODULE_PATH = path.resolve("src/generated/galleries-manifest.js");
 const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"];

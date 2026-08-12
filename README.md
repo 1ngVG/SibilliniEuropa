@@ -12,15 +12,17 @@ Widget standalone per sibillinieuropa.eu (galleria foto, sezione partner dinamic
 ## Struttura
 
 ```text
-galleries/
-  Sess25/
-schedule/
-  program.csv
+content/
+  galleries/
+    Sess25/
+  partners/
+    allPartners.json
+    institutional.json
+    logos/
+  schedule/
+    program.csv
 public/
   generated/
-partners/
-  allPartners.json
-  institutional.json
 src/
   demo/
   gallery/
@@ -33,7 +35,7 @@ src/
 
 ## Workflow
 
-1. Inserisci le immagini originali dentro `galleries/<slug-galleria>/`.
+1. Inserisci le immagini originali dentro `content/galleries/<slug-galleria>/`.
 2. Esegui `npm install`.
 3. Esegui `npm run build`.
 4. Pubblica la cartella `dist/` sul tuo hosting statico.
@@ -41,7 +43,7 @@ src/
 
 Per il widget partner:
 
-1. Inserisci i dati partner in uno o piu file JSON dentro `partners/` (ad esempio `institutional.json` e `allPartners.json`).
+1. Inserisci i dati partner in uno o piu file JSON dentro `content/partners/` (ad esempio `institutional.json` e `allPartners.json`).
 2. Ogni partner deve avere almeno `name`, `url` e `logo`.
 3. Esegui `npm run build:partners-data` (oppure `npm run build`). Questo genera sia gli asset runtime in `public/generated/partners/` sia il manifest build-time in `src/generated/partners-manifest.js`.
 4. In WordPress importa `partners-widget.css`, `partners-widget.js` e aggiungi i contenitori `.partners-widget`.
@@ -80,7 +82,7 @@ La modalita `data-partners-src` resta disponibile come fallback, ma la modalita 
 
 Per il calendario settimanale:
 
-1. Compila `schedule/program.csv` con colonne `Day;StartTime;EndTime;Title;Description;Location;Color`.
+1. Compila `content/schedule/program.csv` con colonne `Day;StartTime;EndTime;Title;Description;Location;Color`.
 2. Esegui `npm run build`.
 3. In WordPress importa `schedule-widget.css`, `schedule-widget.js` e aggiungi i contenitori `.schedule-widget`.
 

@@ -28,16 +28,16 @@ jobs:
         with:
           filters: |
             galleries:
-              - 'galleries/**'
+              - 'content/galleries/**'
             gallery-widget:
               - 'src/gallery/**'
               - 'vite.widget.config.mjs'
             partners:
-              - 'partners/**'
+              - 'content/partners/**'
               - 'src/partners/**'
               - 'vite.partners.config.mjs'
             schedule:
-              - 'schedule/**'
+              - 'content/schedule/**'
             schedule-widget:
               - 'src/schedule/**'
               - 'vite.schedule.config.mjs'

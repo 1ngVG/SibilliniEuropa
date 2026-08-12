@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const INPUT_DIR = path.resolve("partners");
+const INPUT_DIR = path.resolve("content/partners");
 const OUTPUT_DIR = path.resolve("public/generated/partners");
-const INPUT_LOGOS_DIR = path.resolve("partners/logos");
+const INPUT_LOGOS_DIR = path.resolve("content/partners/logos");
 const OUTPUT_LOGOS_DIR = path.resolve("public/generated/partners/logos");
 const MANIFEST_MODULE_PATH = path.resolve("src/generated/partners-manifest.js");
 

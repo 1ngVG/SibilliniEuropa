@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const INPUT_FILE = path.resolve("schedule/program.csv");
+const INPUT_FILE = path.resolve("content/schedule/program.csv");
 const OUTPUT_FILE = path.resolve("src/generated/schedule-manifest.js");
 
 const REQUIRED_HEADERS = [
