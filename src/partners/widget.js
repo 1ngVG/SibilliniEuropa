@@ -130,10 +130,7 @@ function renderPartners(element, config, baseUrl) {
                     <img loading="lazy" decoding="async" src="${logoUrl}" alt="${escapeHtml(partner.alt)}">
                   </span>
                   <span class="pw-face pw-back">
-                    <span class="pw-back-copy">
-                      <span class="pw-back-label">${escapeHtml(partner.cta)}</span>
-                      <span class="pw-back-name">${escapeHtml(partner.name)}</span>
-                    </span>
+                    <span class="pw-back-button" aria-hidden="true">${escapeHtml(partner.cta)}</span>
                   </span>
                 </span>
               </a>
