@@ -60,8 +60,8 @@ Esempio con JSON inline:
 Esempio con sorgente remota (due widget distinti):
 
 ```html
-<div class="partners-widget" data-partners-src="/generated/partners/institutional.json"></div>
-<div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
+<div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
+<div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
 ```
 
 Nota: a differenza di gallery/schedule, il partners widget legge il JSON via `fetch` runtime.
@@ -140,8 +140,8 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 <link rel="stylesheet" href="https://<user>.github.io/<repo>/partners-widget.css">
 <script defer src="https://<user>.github.io/<repo>/partners-widget.js"></script>
 
-<div class="partners-widget" data-partners-src="/generated/partners/institutional.json"></div>
-<div class="partners-widget" data-partners-src="/generated/partners/allPartners.json"></div>
+<div class="partners-widget" data-partners-src="generated/partners/institutional.json"></div>
+<div class="partners-widget" data-partners-src="generated/partners/allPartners.json"></div>
 ```
 
 ```html

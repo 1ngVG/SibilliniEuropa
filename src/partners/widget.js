@@ -1,41 +1,6 @@
 import "./widget.css";
 
 let instanceCounter = 0;
-const scriptBaseUrl = detectScriptBaseUrl();
-
-function detectScriptBaseUrl() {
-  if (typeof document === "undefined") {
-    return undefined;
-  }
-
-  const currentScript = document.currentScript;
-
-  if (currentScript instanceof HTMLScriptElement && currentScript.src) {
-    return new URL(".", currentScript.src);
-  }
-
-  const widgetScript = [...document.querySelectorAll("script[src]")].find((script) => {
-    return script.src.includes("partners-widget.js");
-  });
-
-  if (widgetScript instanceof HTMLScriptElement && widgetScript.src) {
-    return new URL(".", widgetScript.src);
-  }
-
-  return undefined;
-}
-
-function getGlobalBaseUrl() {
-  if (typeof window === "undefined") {
-    return undefined;
-  }
-
-  if (!window.PARTNERS_WIDGET_BASE_URL) {
-    return undefined;
-  }
-
-  return new URL(window.PARTNERS_WIDGET_BASE_URL, window.location.href);
-}
 
 function getElementBaseUrl(element) {
   const localBase = element.dataset.partnersBase;
@@ -44,7 +9,19 @@ function getElementBaseUrl(element) {
     return new URL(localBase, window.location.href);
   }
 
-  return getGlobalBaseUrl() ?? scriptBaseUrl ?? new URL(window.location.href);
+  return new URL(window.location.href);
+}
+
+function resolvePartnersSourceUrl(element, source) {
+  if (/^https?:\/\//i.test(source)) {
+    return new URL(source);
+  }
+
+  if (source.startsWith("/")) {
+    return new URL(source, window.location.origin);
+  }
+
+  return new URL(source, getElementBaseUrl(element));
 }
 
 function escapeHtml(value) {
@@ -195,7 +172,7 @@ async function resolvePartnersPayload(element) {
   const source = element.dataset.partnersSrc;
 
   if (source) {
-    const sourceUrl = new URL(source, getElementBaseUrl(element));
+    const sourceUrl = resolvePartnersSourceUrl(element, source);
     let response;
 
     try {
