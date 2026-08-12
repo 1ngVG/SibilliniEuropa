@@ -59,12 +59,12 @@ async function build() {
       const pipeline = sharp(file).rotate();
 
       await pipeline.clone().resize({
-        width: 1600,
+        inlineSize: 1600,
         withoutEnlargement: true
       }).webp({ quality: 82 }).toFile(imageOutputPath);
 
       await pipeline.clone().resize({
-        width: 480,
+        inlineSize: 480,
         withoutEnlargement: true
       }).webp({ quality: 72 }).toFile(thumbOutputPath);
 

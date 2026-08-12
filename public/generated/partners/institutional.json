@@ -1,0 +1,25 @@
+{
+  "title": "Under the Patronage of",
+  "subtitle": "",
+  "cta": "Scopri di più",
+  "partners": [
+    {
+      "name": "Città di Amandola",
+      "url": "https://www.comune.amandola.fm.it/",
+      "logo": "generated/partners/logos/Amandola.png",
+      "alt": "Città di Amandola"
+    },
+    {
+      "name": "European Parliament",
+      "url": "https://www.europarl.europa.eu/",
+      "logo": "generated/partners/logos/Logo_ParlamentoEuropeo.jpg",
+      "alt": "European Parliament"
+    },
+    {
+      "name": "European Commission",
+      "url": "https://ec.europa.eu/commission/index_en",
+      "logo": "generated/partners/logos/Logo_CommissioneEuropea.jpg",
+      "alt": "European Commission"
+    }
+  ]
+}
