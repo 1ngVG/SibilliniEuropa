@@ -2,7 +2,6 @@ const partnersManifest = {
   "allPartners": {
     "title": "All Our Partners",
     "subtitle": "Partner tecnici e territoriali",
-    "cta": "Scopri di più",
     "partners": [
       {
         "name": "Fondazione Groupamaire",
@@ -63,7 +62,6 @@ const partnersManifest = {
   "institutional": {
     "title": "Under the Patronage of",
     "subtitle": "",
-    "cta": "Scopri di più",
     "partners": [
       {
         "name": "Città di Amandola",

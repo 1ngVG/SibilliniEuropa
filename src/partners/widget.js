@@ -50,7 +50,6 @@ function normalizePartners(payload) {
     return {
       title: "All Our Partners",
       subtitle: "",
-      cta: "Scopri di più",
       partners: payload
     };
   }
@@ -59,7 +58,6 @@ function normalizePartners(payload) {
     return {
       title: typeof payload.title === "string" && payload.title.trim().length > 0 ? payload.title.trim() : "All Our Partners",
       subtitle: typeof payload.subtitle === "string" && payload.subtitle.trim().length > 0 ? payload.subtitle.trim() : "",
-      cta: typeof payload.cta === "string" && payload.cta.trim().length > 0 ? payload.cta.trim() : "Scopri di più",
       partners: Array.isArray(payload.partners) ? payload.partners : []
     };
   }
@@ -67,7 +65,7 @@ function normalizePartners(payload) {
   return null;
 }
 
-function normalizePartner(partner, index, fallbackCta) {
+function normalizePartner(partner, index) {
   if (!partner || typeof partner !== "object") {
     return null;
   }
@@ -85,14 +83,13 @@ function normalizePartner(partner, index, fallbackCta) {
     url,
     logo,
     alt: typeof partner.alt === "string" && partner.alt.trim().length > 0 ? partner.alt.trim() : (name || `Logo partner ${index + 1}`),
-    cta: typeof partner.cta === "string" && partner.cta.trim().length > 0 ? partner.cta.trim() : fallbackCta,
     newTab: partner.newTab !== false
   };
 }
 
 function renderPartners(element, config, baseUrl) {
   const partners = config.partners
-    .map((partner, index) => normalizePartner(partner, index, config.cta))
+    .map((partner, index) => normalizePartner(partner, index))
     .filter(Boolean);
 
   if (partners.length === 0) {
@@ -130,7 +127,7 @@ function renderPartners(element, config, baseUrl) {
                     <img loading="lazy" decoding="async" src="${logoUrl}" alt="${escapeHtml(partner.alt)}">
                   </span>
                   <span class="pw-face pw-back">
-                    <span class="pw-back-button" aria-hidden="true">${escapeHtml(partner.cta)}</span>
+                    <span class="pw-back-button" aria-hidden="true">Go to the Site</span>
                   </span>
                 </span>
               </a>

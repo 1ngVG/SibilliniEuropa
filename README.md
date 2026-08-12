@@ -66,7 +66,7 @@ Esempio con JSON inline:
 
 <div class="partners-widget">
   <script type="application/json" data-partners-data>
-    {"title":"All Our Partners","cta":"Scopri di più","partners":[{"name":"Partner Uno","url":"https://example.com","logo":"/images/partner-uno.svg","alt":"Partner Uno"}]}
+    {"title":"All Our Partners","partners":[{"name":"Partner Uno","url":"https://example.com","logo":"/images/partner-uno.svg","alt":"Partner Uno"}]}
   </script>
 </div>
 ```

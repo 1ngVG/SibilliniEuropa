@@ -1,17 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
+import sharp from "sharp";
 
 const INPUT_DIR = path.resolve("content/partners");
 const OUTPUT_DIR = path.resolve("public/generated/partners");
 const INPUT_LOGOS_DIR = path.resolve("content/partners/logos");
 const OUTPUT_LOGOS_DIR = path.resolve("public/generated/partners/logos");
 const MANIFEST_MODULE_PATH = path.resolve("src/generated/partners-manifest.js");
+const LOGO_MAX_DIMENSION = 640;
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
 }
 
-function copyLogos() {
+async function processLogos() {
   ensureDir(OUTPUT_LOGOS_DIR);
 
   if (!fs.existsSync(INPUT_LOGOS_DIR)) {
@@ -23,7 +25,25 @@ function copyLogos() {
     .map((entry) => entry.name);
 
   for (const fileName of logoFiles) {
-    fs.copyFileSync(path.join(INPUT_LOGOS_DIR, fileName), path.join(OUTPUT_LOGOS_DIR, fileName));
+    const inputPath = path.join(INPUT_LOGOS_DIR, fileName);
+    const outputPath = path.join(OUTPUT_LOGOS_DIR, fileName);
+
+    try {
+      await sharp(inputPath)
+        .rotate()
+        .trim()
+        .resize({
+          width: LOGO_MAX_DIMENSION,
+          height: LOGO_MAX_DIMENSION,
+          fit: "inside",
+          withoutEnlargement: true
+        })
+        .toFile(outputPath);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`Logo processing failed for ${fileName}, copying original instead: ${message}`);
+      fs.copyFileSync(inputPath, outputPath);
+    }
   }
 
   return logoFiles.length;
@@ -53,7 +73,6 @@ function normalizePartner(entry, index) {
     url,
     logo,
     alt: typeof entry.alt === "string" && entry.alt.trim().length > 0 ? entry.alt.trim() : name,
-    cta: typeof entry.cta === "string" && entry.cta.trim().length > 0 ? entry.cta.trim() : undefined,
     newTab: entry.newTab === false ? false : undefined,
     _index: index
   };
@@ -65,7 +84,6 @@ function normalizePayload(filePath, parsed) {
   const source = Array.isArray(parsed) ? {
     title: baseName,
     subtitle: "",
-    cta: "Scopri di più",
     partners: parsed
   } : parsed;
 
@@ -78,7 +96,6 @@ function normalizePayload(filePath, parsed) {
     : baseName;
 
   const subtitle = typeof source.subtitle === "string" ? source.subtitle.trim() : "";
-  const cta = typeof source.cta === "string" && source.cta.trim().length > 0 ? source.cta.trim() : "Scopri di più";
   const partnersRaw = Array.isArray(source.partners) ? source.partners : [];
 
   const partners = partnersRaw
@@ -93,12 +110,11 @@ function normalizePayload(filePath, parsed) {
   return {
     title,
     subtitle,
-    cta,
     partners
   };
 }
 
-function buildPartners() {
+async function buildPartners() {
   ensureDir(OUTPUT_DIR);
 
   if (!fs.existsSync(INPUT_DIR)) {
@@ -114,7 +130,7 @@ function buildPartners() {
     return;
   }
 
-  const copiedLogos = copyLogos();
+  const processedLogos = await processLogos();
   let publishedCount = 0;
   const partnerSets = {};
 
@@ -143,7 +159,10 @@ function buildPartners() {
 
   writeManifestModule(partnerSets);
 
-  console.log(`Published ${publishedCount} partner dataset(s) to ${OUTPUT_DIR} (copied ${copiedLogos} logos)`);
+  console.log(`Published ${publishedCount} partner dataset(s) to ${OUTPUT_DIR} (processed ${processedLogos} logos)`);
 }
 
-buildPartners();
+buildPartners().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -17,7 +17,7 @@ export function createWidgetViteConfig({ entry, cssFileName, bundleName, fileNam
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {
-            if (assetInfo.name === cssFileName) {
+            if (assetInfo.name === `${cssFileName}.css`) {
               return `${cssFileName}.css`;
             }
 
