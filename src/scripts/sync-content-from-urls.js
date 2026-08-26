@@ -21,6 +21,11 @@ const SOURCES = [
     outputDir: path.join(TARGET_ROOT, "staff")
   },
   {
+    envName: "CONTENT_SCIENTIFIC_COMMITTEE_URL",
+    label: "scientific-committee",
+    outputDir: path.join(TARGET_ROOT, "scientific_committee")
+  },
+  {
     envName: "CONTENT_SCHEDULE_URL",
     label: "schedule",
     outputDir: path.join(TARGET_ROOT, "schedule")
