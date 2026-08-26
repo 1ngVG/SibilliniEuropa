@@ -2,7 +2,7 @@ import { escapeHtml } from "../shared/html.js";
 
 export const showcaseTitle = "Sibillini Europa Widgets";
 export const showcaseDescription = "Anteprima pubblicata dei widget standalone per Sibillini Europa.";
-export const showcaseLead = "Questa pagina conferma che il deploy statico e attivo e che i widget possono essere caricati correttamente. Galleria corrente: Sess25. Partner widget: Institutional + All Partners. Programma corrente: program.";
+export const showcaseLead = "Questa pagina conferma che il deploy statico e attivo e che i widget possono essere caricati correttamente. Galleria corrente: Sess25. Partner widget: Institutional + All Partners. Staff: Comitato Organizzatore. Programma corrente: program.";
 export const showcaseStyles = `
 :root {
   color-scheme: light;
@@ -67,6 +67,12 @@ export const showcaseWidgets = [
     }
   },
   {
+    className: "staff-widget",
+    attrs: {
+      "data-staff-set": "committee"
+    }
+  },
+  {
     className: "schedule-widget",
     attrs: {
       "data-schedule": "program"
@@ -90,7 +96,7 @@ export function renderShowcaseWidgets() {
 }
 
 export function renderShowcaseLeadHtml() {
-  return `${escapeHtml("Questa pagina conferma che il deploy statico e attivo e che i widget possono essere caricati correttamente.")}\n        Galleria corrente: <code>Sess25</code>. Partner widget: <code>Institutional + All Partners</code>. Programma corrente: <code>program</code>.`;
+  return `${escapeHtml("Questa pagina conferma che il deploy statico e attivo e che i widget possono essere caricati correttamente.")}\n        Galleria corrente: <code>Sess25</code>. Partner widget: <code>Institutional + All Partners</code>. Staff: <code>Comitato Organizzatore</code>. Programma corrente: <code>program</code>.`;
 }
 
 export function renderStaticDemoPage() {
@@ -103,6 +109,7 @@ export function renderStaticDemoPage() {
     <meta name="description" content="${escapeHtml(showcaseDescription)}">
     <link rel="stylesheet" href="./gallery-widget.css">
     <link rel="stylesheet" href="./partners-widget.css">
+    <link rel="stylesheet" href="./staff-widget.css">
     <link rel="stylesheet" href="./schedule-widget.css">
     <style>
 ${showcaseStyles}
@@ -120,6 +127,7 @@ ${renderShowcaseWidgets()}
     </main>
     <script defer src="./gallery-widget.js"></script>
     <script defer src="./partners-widget.js"></script>
+    <script defer src="./staff-widget.js"></script>
     <script defer src="./schedule-widget.js"></script>
   </body>
 </html>

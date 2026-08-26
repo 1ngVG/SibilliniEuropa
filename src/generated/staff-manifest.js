@@ -1,0 +1,40 @@
+const staffManifest = {
+  "committee": {
+    "title": "Comitato Organizzatore",
+    "subtitle": "",
+    "members": [
+      {
+        "name": "Federica Cupelli",
+        "role": "Presidente",
+        "photo": "generated/staff/profile-pics/Federica Cupelli.jpg",
+        "alt": "Federica Cupelli"
+      },
+      {
+        "name": "Valerio GIannini",
+        "role": "Vice Presidente",
+        "photo": "generated/staff/profile-pics/ValerioGiannini.jpg",
+        "alt": "Valerio GIannini"
+      },
+      {
+        "name": "Daniele Calisti",
+        "role": "Segretario",
+        "photo": "generated/staff/profile-pics/DanieleCalisti.jpg",
+        "alt": "Daniele Calisti"
+      },
+      {
+        "name": "Pierpaolo Settembri",
+        "role": "Membro del consiglio direttivo",
+        "photo": "generated/staff/profile-pics/PierpaoloSettembri.jpg",
+        "alt": "Pierpaolo Settembri"
+      },
+      {
+        "name": "Virginia Giannini",
+        "role": "Membra del consiglio direttivo",
+        "photo": "generated/staff/profile-pics/VirginiaGiannini.jpg",
+        "alt": "Virginia Giannini"
+      }
+    ]
+  }
+};
+
+export default staffManifest;

@@ -1,6 +1,6 @@
 # SibilliniEuropa
 
-Widget standalone per sibillinieuropa.eu (galleria foto, sezione partner dinamica + calendario settimanale).
+Widget standalone per sibillinieuropa.eu (galleria foto, sezione partner dinamica, bacheca staff + calendario settimanale).
 
 ## Stack
 
@@ -19,6 +19,9 @@ content/
     allPartners.json
     institutional.json
     logos/
+  staff/
+    committee.json
+    ProfilePic/
   schedule/
     program.csv
 public/
@@ -27,6 +30,7 @@ src/
   demo/
   gallery/
   partners/
+  staff/
   schedule/
   pages/
   scripts/
@@ -80,6 +84,25 @@ Modalita compatibile con sorgente remota:
 
 La modalita `data-partners-src` resta disponibile come fallback, ma la modalita `data-partners-set` e ora l'architettura primaria per ridurre fetch runtime e problemi di hosting.
 
+Per la bacheca staff:
+
+1. Inserisci i dati staff in uno o piu file JSON dentro `content/staff/` (ad esempio `committee.json`).
+2. Ogni membro deve avere almeno `name` e `photo`; `role` e opzionale.
+3. Metti le foto profilo originali dentro `content/staff/ProfilePic/`. Nel JSON, `photo` punta al percorso generato, ad esempio `generated/staff/profile-pics/mario-rossi.jpg`.
+4. Esegui `npm run build:staff-data` (oppure `npm run build`). Questo genera sia gli asset runtime in `public/generated/staff/` sia il manifest build-time in `src/generated/staff-manifest.js`.
+5. In WordPress importa `staff-widget.css`, `staff-widget.js` e aggiungi i contenitori `.staff-widget`.
+
+A differenza del widget partner, le card staff non flippano e non linkano a siti esterni: mostrano solo foto, nome e ruolo, con lo stesso linguaggio grafico (colori, radius, ombre) del widget partner.
+
+```html
+<link rel="stylesheet" href="https://your-static-host.example/staff-widget.css">
+<script defer src="https://your-static-host.example/staff-widget.js"></script>
+
+<div class="staff-widget" data-staff-set="committee"></div>
+```
+
+Anche qui restano disponibili le modalita JSON inline (`data-staff-data`) e sorgente remota (`data-staff-src="generated/staff/committee.json"`), con la stessa semantica del widget partner.
+
 Per il calendario settimanale:
 
 1. Compila `content/schedule/program.csv` con colonne `Day;StartTime;EndTime;Title;Description;Location;Color`.
@@ -121,10 +144,12 @@ Per il calendario:
 - `npm run build:demo-page`: rigenera `public/index.html` dalla source of truth condivisa della demo
 - `npm run build:galleries`: genera immagini ottimizzate e manifest JSON
 - `npm run build:partners-data`: valida e pubblica i JSON partner in `public/generated/partners/` e rigenera `src/generated/partners-manifest.js`
+- `npm run build:staff-data`: valida e pubblica i JSON staff in `public/generated/staff/`, ottimizza le foto profilo e rigenera `src/generated/staff-manifest.js`
 - `npm run build:schedule`: genera il manifest schedule da CSV
 - `npm run build:gallery-widget`: genera il bundle standalone del widget gallery
 - `npm run build:widget`: alias compatibile di `build:gallery-widget`
 - `npm run build:partners-widget`: genera il bundle standalone del widget partner
+- `npm run build:staff-widget`: genera il bundle standalone del widget staff
 - `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
 - `npm run build`: build del widget deployabile
 - `npm run build:demo`: build opzionale della pagina demo Astro
@@ -160,6 +185,13 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 ```
 
 ```html
+<link rel="stylesheet" href="https://<user>.github.io/<repo>/staff-widget.css">
+<script defer src="https://<user>.github.io/<repo>/staff-widget.js"></script>
+
+<div class="staff-widget" data-staff-set="committee"></div>
+```
+
+```html
 <link rel="stylesheet" href="https://<user>.github.io/<repo>/schedule-widget.css">
 <script defer src="https://<user>.github.io/<repo>/schedule-widget.js"></script>
 
@@ -172,10 +204,11 @@ Puoi tenere immagini gallerie, loghi partner e CSV programma fuori dalla repo e 
 
 ### Opzione 2 (consigliata): cartelle Drive + Service Account
 
-Il workflow puo sincronizzare direttamente 3 cartelle Drive condivise:
+Il workflow puo sincronizzare direttamente 4 cartelle Drive condivise:
 
 - cartella gallerie -> `content/galleries`
 - cartella partners -> `content/partners`
+- cartella staff -> `content/staff`
 - cartella schedule -> `content/schedule`
 
 Secret richiesti:
@@ -183,6 +216,7 @@ Secret richiesti:
 - `GOOGLE_SERVICE_ACCOUNT_JSON`: JSON completo della chiave service account
 - `DRIVE_GALLERIES_FOLDER_ID`: ID cartella Drive gallerie
 - `DRIVE_PARTNERS_FOLDER_ID`: ID cartella Drive partners
+- `DRIVE_STAFF_FOLDER_ID`: ID cartella Drive staff
 - `DRIVE_SCHEDULE_FOLDER_ID`: ID cartella Drive schedule
 
 Come ricavare il folder ID:
@@ -192,7 +226,7 @@ Come ricavare il folder ID:
 
 Permessi da impostare su Drive:
 
-1. apri le 3 cartelle Drive
+1. apri le 4 cartelle Drive
 2. condividi ogni cartella con l'email del service account (`client_email` presente nel JSON)
 3. ruolo: Viewer
 
@@ -200,6 +234,7 @@ Struttura attesa delle cartelle:
 
 - gallerie: sottocartelle evento (esempio `Sess25/`) con immagini `jpg`, `jpeg`, `png`
 - partners: file JSON dataset (`allPartners.json`, `institutional.json`) e cartella `logos/`
+- staff: file JSON dataset (`committee.json`) e cartella `ProfilePic/`
 - schedule: file `program.csv` (oppure anche Google Sheet esportabile in CSV)
 
 Script usato in CI:
@@ -212,10 +247,11 @@ Quando i secret Drive non sono valorizzati, la build continua a usare il contenu
 
 ### Opzione 1 (fallback): URL diretti a archivi tar.gz
 
-Il workflow supporta 3 secret opzionali:
+Il workflow supporta 4 secret opzionali:
 
 - `CONTENT_GALLERIES_URL`
 - `CONTENT_PARTNERS_URL`
+- `CONTENT_STAFF_URL`
 - `CONTENT_SCHEDULE_URL`
 
 Ogni URL deve puntare a un archivio `.tar.gz` scaricabile (ad esempio link pubblico da Google Drive trasformato in download diretto).
@@ -224,12 +260,13 @@ Struttura attesa dentro gli archivi:
 
 - `CONTENT_GALLERIES_URL`: file immagini direttamente dentro sottocartelle galleria (esempio `Sess25/foto1.jpg`)
 - `CONTENT_PARTNERS_URL`: JSON dataset + cartella `logos/` (esempio `allPartners.json`, `institutional.json`, `logos/logo1.png`)
+- `CONTENT_STAFF_URL`: JSON dataset + cartella `ProfilePic/` (esempio `committee.json`, `ProfilePic/mario-rossi.jpg`)
 - `CONTENT_SCHEDULE_URL`: file `program.csv` alla root dell'archivio
 
 Quando i secret non sono valorizzati, la build usa normalmente i file presenti in `content/` locale.
 
 Script disponibile:
 
-- `npm run sync:content`: sincronizza le 3 sorgenti remote (se configurate) dentro `content/`
+- `npm run sync:content`: sincronizza le 4 sorgenti remote (se configurate) dentro `content/`
 
 Suggerimento pratico: in locale mantieni una copia minima per sviluppo, mentre in produzione (GitHub Actions) usi i secret URL per evitare di versionare asset pesanti.
