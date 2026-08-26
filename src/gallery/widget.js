@@ -47,6 +47,34 @@ function setupCarousel(root) {
   });
 }
 
+const GW_INHERITED_VARS = [
+  "--gw-gap",
+  "--gw-radius",
+  "--gw-shadow",
+  "--gw-border",
+  "--gw-surface",
+  "--gw-surface-strong",
+  "--gw-ink",
+  "--gw-muted",
+  "--gw-accent",
+  "--gw-accent-strong"
+];
+
+function detachModalFromHost(root, modal) {
+  // Host pages can wrap the widget in an ancestor with `transform`,
+  // `filter`, `contain`, etc. That ancestor becomes the containing block
+  // for our `position: fixed` modal, so it renders clipped/behind other
+  // page content instead of covering the viewport. Moving the modal to
+  // `document.body` escapes that ancestor's stacking/containing context.
+  const hostStyles = window.getComputedStyle(root);
+
+  GW_INHERITED_VARS.forEach((name) => {
+    modal.style.setProperty(name, hostStyles.getPropertyValue(name));
+  });
+
+  document.body.appendChild(modal);
+}
+
 function setupModal(root) {
   const modal = root.querySelector(".gw-modal");
   const openButtons = root.querySelectorAll('[data-gw-action="open-modal"]');
@@ -55,6 +83,8 @@ function setupModal(root) {
   if (!(modal instanceof HTMLElement)) {
     return;
   }
+
+  detachModalFromHost(root, modal);
 
   const openModal = () => {
     modal.hidden = false;
