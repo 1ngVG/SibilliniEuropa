@@ -24,12 +24,17 @@
     "preview": "npm run preview:gallery-widget"
   },
   "dependencies": {
-    "astro": "^5.9.0",
+    "astro": "^7.2.7",
+    "caveman-installer": "github:JuliusBrussee/caveman#v2.3.1",
     "fast-glob": "^3.3.3",
     "glightbox": "^3.3.1",
-    "sharp": "^0.34.2"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "vite": "^7.0.0"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "esbuild@0.28.2": true
   }
 }
