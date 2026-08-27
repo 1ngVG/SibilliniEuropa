@@ -1,14 +1,15 @@
 .gallery-widget {
   --gw-gap: 12px;
-  --gw-radius: 14px;
-  --gw-shadow: 0 18px 40px rgba(16, 24, 40, 0.12);
-  --gw-border: rgba(15, 23, 42, 0.12);
-  --gw-surface: rgba(255, 255, 255, 0.84);
-  --gw-surface-strong: rgba(255, 255, 255, 0.96);
-  --gw-ink: #122033;
-  --gw-muted: #526071;
-  --gw-accent: #458657;
-  --gw-accent-strong: #3c744b;
+  --gw-radius: 1.15rem;
+  --gw-shadow: 0 24px 60px rgba(16, 24, 40, 0.12);
+  --gw-border: rgba(31, 41, 55, 0.12);
+  --gw-shell-bg: linear-gradient(180deg, rgba(250, 247, 241, 0.98), rgba(245, 242, 235, 0.98));
+  --gw-surface: rgba(250, 247, 241, 0.9);
+  --gw-surface-strong: rgba(245, 242, 235, 0.98);
+  --gw-ink: #18212b;
+  --gw-muted: #5c6773;
+  --gw-accent: #3f7b4f;
+  --gw-accent-strong: #2f5f3b;
 }
 
 body.gw-modal-open {
@@ -18,20 +19,22 @@ body.gw-modal-open {
 .gallery-widget[data-state="empty"],
 .gallery-widget[data-state="error"] {
   padding: 1rem;
-  border: 1px solid rgba(16, 24, 40, 0.12);
+  border: 1px solid var(--gw-border);
   border-radius: var(--gw-radius);
   font: 500 0.95rem/1.5 Georgia, "Times New Roman", serif;
-  color: #334155;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.98));
+  color: var(--gw-ink);
+  background: var(--gw-shell-bg);
+  box-shadow: var(--gw-shadow);
 }
 
 .gw-shell {
   padding: 1rem;
   border: 1px solid var(--gw-border);
-  border-radius: calc(var(--gw-radius) + 6px);
+  border-radius: calc(var(--gw-radius) + 0.3rem);
   background:
-    radial-gradient(circle at top left, rgba(191, 219, 254, 0.4), transparent 28%),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.98));
+    radial-gradient(circle at top left, rgba(63, 123, 79, 0.08), transparent 34%),
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.07), transparent 24%),
+    var(--gw-shell-bg);
   box-shadow: var(--gw-shadow);
 }
 
@@ -76,7 +79,7 @@ body.gw-modal-open {
   transform: translateY(-1px);
   border-color: var(--gw-accent-strong);
   background: var(--gw-accent-strong);
-  box-shadow: 0 10px 24px rgba(69, 134, 87, 0.24);
+  box-shadow: 0 10px 24px rgba(63, 123, 79, 0.24);
 }
 
 .gw-carousel {
@@ -167,9 +170,9 @@ body.gw-modal-open {
   max-block-size: min(90vh, 1000px);
   overflow: auto;
   padding: 1.25rem;
-  border-radius: calc(var(--gw-radius) + 8px);
+  border-radius: calc(var(--gw-radius) + 0.5rem);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(247, 249, 252, 0.96);
+  background: rgba(248, 245, 239, 0.96);
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.32);
 }
 
@@ -183,7 +186,7 @@ body.gw-modal-open {
 @media (max-width: 700px) {
   .gallery-widget {
     --gw-gap: 10px;
-    --gw-radius: 12px;
+    --gw-radius: 1rem;
   }
 
   .gw-carousel-header,
