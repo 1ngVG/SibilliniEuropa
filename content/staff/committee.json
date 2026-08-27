@@ -1,0 +1,80 @@
+{
+  "title": "Comitato Organizzatore",
+  "members": [
+    {
+      "name": "Federica Cupelli",
+      "role": "Presidente",
+      "photo": "generated/staff/profile-pics/Federica Cupelli.jpg"
+    },
+    {
+      "name": "Valerio Giannini",
+      "role": "Vice Presidente",
+      "photo": "generated/staff/profile-pics/ValerioGiannini.jpg"
+    },
+    {
+      "name": "Daniele Calisti",
+      "role": "Segretario",
+      "photo": "generated/staff/profile-pics/DanieleCalisti.jpg"
+    },
+    {
+      "name": "Pierpaolo Settembri",
+      "role": "Membro del consiglio direttivo",
+      "photo": "generated/staff/profile-pics/PierpaoloSettembri.jpg"
+    },
+    {
+      "name": "Virginia Giannini",
+      "role": "Membra del consiglio direttivo",
+      "photo": "generated/staff/profile-pics/VirginiaGiannini.jpg"
+    },
+    {
+      "name": "Elia Mazzoni",
+      "role": "Socio",
+      "photo": "generated/staff/profile-pics/EliaMazzoni.jpg"
+    },
+    {
+      "name": "Giulia Falchi",
+      "role": "Socia",
+      "photo": "generated/staff/profile-pics/GiuliaFalchi.jpg"
+    },
+    {
+      "name": "Giulia Lombardi",
+      "role": "Socia",
+      "photo": "generated/staff/profile-pics/GiuliaLombardi.jpg"
+    },
+    {
+      "name": "Giulia Marcie",
+      "role": "Socia",
+      "photo": "generated/staff/profile-pics/GiuliaMarcie.jpg"
+    },   
+    {
+      "name": "Giulia Porfiri",
+      "role": "Socia",
+      "photo": "generated/staff/profile-pics/GiuliaPorfiri.jpg"
+    },
+    {
+      "name": "Giulio Falsina",
+      "role": "Socio",
+      "photo": "generated/staff/profile-pics/GiulioFalsina.jpg"
+    },
+    {
+      "name": "Giulio Teodori",
+      "role": "Socio",
+      "photo": "generated/staff/profile-pics/GiulioTeodori.jpg"
+    },
+    {
+      "name": "Lorenzo Perticarà",
+      "role": "Socio",
+      "photo": "generated/staff/profile-pics/Lorenzo Perticarà.jpg"
+    },
+    {
+      "name": "Maksym Loharzhevskyi",
+      "role": "Socio",
+      "photo": "generated/staff/profile-pics/MaksymLoharzhevskyi.jpg"
+    },
+    {
+      "name": "Viola Pomili Pomili",
+      "role": "Socia",
+      "photo": "generated/staff/profile-pics/ViolaPomili.jpg"
+    }
+  ]
+}
