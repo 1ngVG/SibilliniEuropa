@@ -129,6 +129,33 @@ Per il calendario settimanale:
 
 Slug attuale pubblicato nel repository: `Sess25`.
 
+Per la donazione tramite PayPal:
+
+1. Su PayPal (account Business) crea un bottone Donate (PayPal.Me/Donate Button) e recupera l'`hosted_button_id`.
+2. Nessun build dati richiesto: il widget usa solo attributi `data-*` sull'elemento contenitore, niente file in `content/`.
+3. In WordPress importa `donation-widget.css`, `donation-widget.js` e aggiungi un contenitore `.donation-widget` con `data-donation-button-id`.
+
+Attributi disponibili:
+
+- `data-donation-button-id` (obbligatorio): hosted button ID PayPal.
+- `data-donation-amounts` (opzionale, default `10,25,50,100`): importi preset separati da virgola.
+- `data-donation-currency` (opzionale, default `EUR`): codice valuta ISO.
+- `data-donation-title` (opzionale, default `Sostienici`): titolo widget.
+- `data-donation-subtitle` (opzionale): sottotitolo/descrizione.
+
+Al submit il form posta a `https://www.paypal.com/donate` con `hosted_button_id`, `currency_code` e `amount` (preso dal preset cliccato o dal campo importo libero); si apre in una nuova scheda cosi il visitatore non perde il sito.
+
+```html
+<link rel="stylesheet" href="https://your-static-host.example/donation-widget.css">
+<script defer src="https://your-static-host.example/donation-widget.js"></script>
+
+<div class="donation-widget"
+     data-donation-button-id="XXXXXXXXXXXXX"
+     data-donation-amounts="10,25,50,100"
+     data-donation-title="Sostieni Sibillini Europa"
+     data-donation-subtitle="Ogni contributo aiuta a organizzare l'evento."></div>
+```
+
 Dopo il deploy, la root del sito pubblicato mostra una pagina di anteprima del widget. Se vuoi verificare direttamente gli asset, prova anche `/gallery-widget.js`, `/gallery-widget.css` e `/generated/galleries.json`.
 
 La demo locale Astro (`src/pages/index.astro`) e la preview statica pubblicata (`public/index.html`) condividono la stessa source of truth in `src/demo/showcase.js`. La preview statica viene rigenerata con `npm run build:demo-page`.
@@ -171,6 +198,7 @@ Per il calendario:
 - `npm run build:staff-widget`: genera il bundle standalone del widget staff
 - `npm run build:committee-widget`: genera il bundle standalone del widget comitato scientifico
 - `npm run build:schedule-widget`: genera il bundle standalone del widget calendario
+- `npm run build:donation-widget`: genera il bundle standalone del widget donazioni
 - `npm run build`: build del widget deployabile
 - `npm run build:demo`: build opzionale della pagina demo Astro
 
@@ -223,6 +251,13 @@ Per WordPress, se usi GitHub Pages senza dominio custom, aggiorna gli embed con 
 <script defer src="https://<user>.github.io/<repo>/schedule-widget.js"></script>
 
 <div class="schedule-widget" data-schedule="program"></div>
+```
+
+```html
+<link rel="stylesheet" href="https://<user>.github.io/<repo>/donation-widget.css">
+<script defer src="https://<user>.github.io/<repo>/donation-widget.js"></script>
+
+<div class="donation-widget" data-donation-button-id="XXXXXXXXXXXXX"></div>
 ```
 
 ## Contenuti fuori repository (Google Drive)

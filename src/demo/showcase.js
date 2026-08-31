@@ -83,6 +83,12 @@ export const showcaseWidgets = [
     attrs: {
       "data-schedule": "program"
     }
+  },
+  {
+    className: "donation-widget",
+    attrs: {
+      "data-donation-button-id": "REPLACE_WITH_HOSTED_BUTTON_ID"
+    }
   }
 ];
 
@@ -118,6 +124,7 @@ export function renderStaticDemoPage() {
     <link rel="stylesheet" href="./staff-widget.css">
     <link rel="stylesheet" href="./committee-widget.css">
     <link rel="stylesheet" href="./schedule-widget.css">
+    <link rel="stylesheet" href="./donation-widget.css">
     <style>
 ${showcaseStyles}
     </style>
@@ -137,6 +144,7 @@ ${renderShowcaseWidgets()}
     <script defer src="./staff-widget.js"></script>
     <script defer src="./committee-widget.js"></script>
     <script defer src="./schedule-widget.js"></script>
+    <script defer src="./donation-widget.js"></script>
   </body>
 </html>
 `;

@@ -1,0 +1,144 @@
+.donation-widget {
+  --dw-radius: 1.15rem;
+  --dw-shell-bg: linear-gradient(180deg, rgba(250, 247, 241, 0.98), rgba(245, 242, 235, 0.98));
+  --dw-shell-border: rgba(31, 41, 55, 0.12);
+  --dw-shell-shadow: 0 24px 60px rgba(16, 24, 40, 0.12);
+  --dw-ink: #18212b;
+  --dw-muted: #5c6773;
+  --dw-accent: #3f7b4f;
+  --dw-accent-strong: #2f5f3b;
+  --dw-field-bg: #ffffff;
+  --dw-field-border: rgba(16, 24, 40, 0.14);
+}
+
+.donation-widget[data-state="empty"],
+.donation-widget[data-state="error"] {
+  padding: 1rem;
+  border-radius: var(--dw-radius);
+  border: 1px solid var(--dw-shell-border);
+  background: var(--dw-shell-bg);
+  color: var(--dw-ink);
+  box-shadow: var(--dw-shell-shadow);
+}
+
+.dw-shell {
+  display: grid;
+  gap: 1.25rem;
+  max-inline-size: 26rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: calc(var(--dw-radius) + 0.3rem);
+  border: 1px solid var(--dw-shell-border);
+  background:
+    radial-gradient(circle at top left, rgba(63, 123, 79, 0.08), transparent 34%),
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.07), transparent 24%),
+    var(--dw-shell-bg);
+  box-shadow: var(--dw-shell-shadow);
+}
+
+.dw-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.dw-kicker {
+  margin: 0;
+  color: var(--dw-accent);
+  font: 700 0.72rem/1.2 Arial, sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.dw-title {
+  margin: 0;
+  color: var(--dw-ink);
+  font: 700 clamp(1.4rem, 2.2vw, 2rem)/1.1 Georgia, "Times New Roman", serif;
+}
+
+.dw-subtitle {
+  margin: 0;
+  max-inline-size: 60ch;
+  color: var(--dw-muted);
+  font: 400 0.98rem/1.65 Georgia, "Times New Roman", serif;
+}
+
+.dw-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dw-amounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
+  gap: 0.6rem;
+}
+
+.dw-amount-btn {
+  padding: 0.65rem 0.5rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--dw-field-border);
+  background: var(--dw-field-bg);
+  color: var(--dw-ink);
+  font: 700 0.95rem/1.2 Arial, sans-serif;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.dw-amount-btn:hover {
+  border-color: var(--dw-accent);
+}
+
+.dw-amount-btn[aria-pressed="true"] {
+  border-color: var(--dw-accent);
+  background: var(--dw-accent);
+  color: #ffffff;
+}
+
+.dw-custom-label {
+  margin-top: 0.15rem;
+  color: var(--dw-muted);
+  font: 600 0.78rem/1.3 Arial, sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.dw-custom-input {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--dw-field-border);
+  background: var(--dw-field-bg);
+  color: var(--dw-ink);
+  font: 500 1rem/1.3 Arial, sans-serif;
+}
+
+.dw-custom-input:focus {
+  outline: 2px solid var(--dw-accent);
+  outline-offset: 1px;
+}
+
+.dw-error {
+  margin: 0;
+  color: #b91c1c;
+  font: 600 0.85rem/1.4 Arial, sans-serif;
+}
+
+.dw-submit {
+  padding: 0.85rem 1rem;
+  border-radius: 0.8rem;
+  border: none;
+  background: var(--dw-accent-strong);
+  color: #ffffff;
+  font: 700 1rem/1.2 Arial, sans-serif;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.dw-submit:hover {
+  background: var(--dw-accent);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .dw-shell {
+    padding: 0.9rem;
+  }
+}

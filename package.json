@@ -22,8 +22,9 @@
     "build:staff-widget": "vite build --config vite.staff.config.mjs",
     "build:committee-widget": "vite build --config vite.committee.config.mjs",
     "build:schedule-widget": "vite build --config vite.schedule.config.mjs",
+    "build:donation-widget": "vite build --config vite.donation.config.mjs",
     "build:demo": "npm run build:demo-page && astro build",
-    "build": "npm run sync:content && npm run build:clean && npm run build:galleries && npm run build:partners-data && npm run build:staff-data && npm run build:committee-data && npm run build:schedule && npm run build:demo-page && npm run build:gallery-widget && npm run build:partners-widget && npm run build:staff-widget && npm run build:committee-widget && npm run build:schedule-widget",
+    "build": "npm run sync:content && npm run build:clean && npm run build:galleries && npm run build:partners-data && npm run build:staff-data && npm run build:committee-data && npm run build:schedule && npm run build:demo-page && npm run build:gallery-widget && npm run build:partners-widget && npm run build:staff-widget && npm run build:committee-widget && npm run build:schedule-widget && npm run build:donation-widget",
     "preview:gallery-widget": "vite preview --config vite.widget.config.mjs",
     "preview": "npm run preview:gallery-widget"
   },
